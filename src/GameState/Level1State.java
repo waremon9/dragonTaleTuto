@@ -5,9 +5,7 @@
  */
 package GameState;
 
-import Main.GamePanel;
 import TileMap.*;
-import java.awt.Color;
 import java.awt.Graphics2D;
 
 /**
@@ -17,6 +15,7 @@ import java.awt.Graphics2D;
 public class Level1State extends GameState {
     
     private TileMap tileMap;
+    private Background bg;
     
     public Level1State(GameStateManager gsm){
         this.gsm = gsm;
@@ -30,13 +29,15 @@ public class Level1State extends GameState {
         tileMap.loadMap("/res/Maps/level1-1.map");
         tileMap.setPosition(0, 0);
         
+        bg = new Background("/res/Backgrounds/grassbg1.gif", 0.1);
+        
     }
     public void update(){}
     
     public void draw(Graphics2D g){
-        //clear he screen
-        g.setColor(Color.WHITE);
-        g.fillRect(0, 0, GamePanel.WIDTH, GamePanel.HEIGHT);
+        
+        //draw bg (it clear the menu screen)
+        bg.draw(g);
         
         //draw tileMap
         tileMap.draw(g);

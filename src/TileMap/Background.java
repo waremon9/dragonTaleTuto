@@ -23,6 +23,7 @@ public class Background {
     private double dx;
     private double dy;
     
+    //how much the background move compared to the level
     private double moveScale;
     
     public Background(String s, double ms){
