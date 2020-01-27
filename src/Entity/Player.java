@@ -77,7 +77,8 @@ public class Player extends MapObject{
         health = maxHealth = 5;
         fire = maxFire = 2500;
         
-        fireCost = 200; fireBallDamage = 5;
+        fireCost = 200;
+        fireBallDamage = 5;
         fireBalls = new ArrayList<FireBall>();
         
         scratchDamage = 8;
@@ -294,11 +295,8 @@ public class Player extends MapObject{
             }
         }
         
-        if(facingRight){
-            g.drawImage(animation.getImage(), (int)(x+xmap-width/2), (int)(y+ymap-height/2), null);
-        }else{//flip the image
-            g.drawImage(animation.getImage(), (int)(x+xmap-width/2+width), (int)(y+ymap-height/2),-width,height, null);
-        }
+        //call function draw from MapObject
+        super.draw(g);
         
     }
     

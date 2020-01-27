@@ -116,8 +116,8 @@ public class TileMap {
     
     }
 
-    public int getX() {return (int) x;}
-    public int getY() {return (int) y;}
+    public double getX() {return  x;}
+    public double getY() {return  y;}
     public int getTileSize() {return tileSize;}
     public int getWidth() {return width;}
     public int getHeight() {return height;}
@@ -129,6 +129,8 @@ public class TileMap {
         int c = rc % numTilesAcross;
         return tiles[r][c].getType();
     }
+
+    public void setTween(double tween) {this.tween = tween;}
     
     public void setPosition(double x, double y){
         //camera follow the player exactly

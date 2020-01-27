@@ -5,11 +5,15 @@
  */
 package GameState;
 
+import Entity.Enemies.Slugger;
+import Entity.Enemy;
+import Entity.HUD;
 import Entity.Player;
 import Main.GamePanel;
 import TileMap.*;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 /**
  *
@@ -21,6 +25,10 @@ public class Level1State extends GameState {
     private Background bg;
     
     private Player player;
+    
+    private ArrayList<Enemy> enemies;
+    
+    private HUD hud;
     
     public Level1State(GameStateManager gsm){
         this.gsm = gsm;
@@ -39,13 +47,29 @@ public class Level1State extends GameState {
         player = new Player(tileMap);
         player.setPosition(100, 100);//starting position
         
+        enemies = new ArrayList<Enemy>();
+        Slugger s;
+        s = new Slugger(tileMap);
+        s.setPosition(200, 100);
+        enemies.add(s);
+        
+        hud = new HUD(player);
+        
     }
     public void update(){
     
         //update player
         player.update();
         tileMap.setPosition(GamePanel.WIDTH/2 - player.getx(), GamePanel.HEIGHT/2 - player.gety());
-    
+        
+        //background scrolling
+        bg.setPosition(tileMap.getX(), tileMap.getY());
+        
+        //update all enemies
+        for(int i= 0; i < enemies.size(); i++){
+            enemies.get(i).update();
+        }
+        
     }
     
     public void draw(Graphics2D g){
@@ -58,6 +82,14 @@ public class Level1State extends GameState {
         
         //draw player
         player.draw(g);
+        
+        //draw ennemis
+        for(int i = 0; i < enemies.size(); i++){
+            enemies.get(i).draw(g);
+        }
+        
+        //draw hud
+        hud.draw(g);
         
     }
     
