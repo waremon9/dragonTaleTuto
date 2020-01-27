@@ -96,14 +96,13 @@ public abstract class MapObject {
         
         int leftTile = (int)(x-cwidth/2)/tileSize;
         int rightTile = (int)(x+cwidth/2 -1)/tileSize;//-1 to not step over the new column
-        int topTile = (int)(x-cheight/2)/tileSize;
-        int bottomTile = (int)(x+cheight/2 -1)/tileSize;//-1 to not step over the new row
+        int topTile = (int)(y-cheight/2)/tileSize;
+        int bottomTile = (int)(y+cheight/2 -1)/tileSize;//-1 to not step over the new row
         
         int tl = tileMap.getType(topTile, leftTile);
         int tr = tileMap.getType(topTile, rightTile);
         int bl = tileMap.getType(bottomTile, leftTile);
         int br = tileMap.getType(bottomTile, rightTile);
-        
         topLeft = tl == Tile.BLOCKED;
         topRight = tr == Tile.BLOCKED;
         bottomLeft = bl == Tile.BLOCKED;
@@ -131,7 +130,7 @@ public abstract class MapObject {
                 ytemp += dy;
             }
         }
-        if(dy>0){//mean we go downwrd so check bot 2 corners
+        if(dy>0){//mean we go downward so check bot 2 corners
             if(bottomLeft || bottomRight){
                 dy = 0;
                 falling = false;//because we hit the floor

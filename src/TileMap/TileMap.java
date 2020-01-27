@@ -94,6 +94,11 @@ public class TileMap {
             width = numCols * tileSize;
             height = numRows * tileSize;
             
+            xmin = GamePanel.WIDTH - width;
+            xmax = 0;
+            ymin = GamePanel.HEIGHT - height;
+            xmax = 0;
+            
             //delimiters
             String delims = "\\s+";
             for(int row = 0; row < numRows; row++){
@@ -119,6 +124,7 @@ public class TileMap {
     
     public int getType(int row, int col){
         int rc = map[row][col];//get the number of the id of the tile (start at 0)
+
         int r = rc / numTilesAcross;
         int c = rc % numTilesAcross;
         return tiles[r][c].getType();
