@@ -22,7 +22,7 @@ public class Animation {
     //for animation that do not loop
     private boolean  playedOnce;
     
-    public void Animation(){
+    public Animation(){
         playedOnce = false;
     }
     
