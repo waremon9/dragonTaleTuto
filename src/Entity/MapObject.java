@@ -187,8 +187,8 @@ public abstract class MapObject {
     
     //every item has a global position and a local position
     public void setMapPosition(){
-        xmap = tileMap.getX();
-        ymap = tileMap.getY();
+        xmap = tileMap.getx();
+        ymap = tileMap.gety();
     }
     
     public void setLeft(boolean b){left = b;}

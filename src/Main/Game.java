@@ -18,6 +18,7 @@ public class Game {
         JFrame window = new JFrame("Dragon Tale");
         window.setContentPane(new GamePanel());//contentPane is the game panel
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window.setLocation(500, 200);
         window.setResizable(false);
         window.pack();
         window.setVisible(true);
