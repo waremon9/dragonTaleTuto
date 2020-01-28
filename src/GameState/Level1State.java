@@ -16,6 +16,7 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import Audio.AudioPlayer;
 
 /**
  *
@@ -32,6 +33,8 @@ public class Level1State extends GameState {
     private ArrayList<Explosion> explosions;
     
     private HUD hud;
+    
+    private AudioPlayer bgMusic;
     
     public Level1State(GameStateManager gsm){
         this.gsm = gsm;
@@ -55,6 +58,9 @@ public class Level1State extends GameState {
         explosions = new ArrayList<Explosion>();
         
         hud = new HUD(player);
+        
+        bgMusic = new AudioPlayer("/res/Music/level1-1.mp3");
+        bgMusic.playLoop();
         
     }
     

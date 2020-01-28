@@ -5,10 +5,8 @@
         <group>
             <file>file:/C:/Users/verhi/OneDrive/Documents/NetBeansProjects/DragonTuto/dragonTaleTuto/src/GameState/Level1State.java</file>
             <file>file:/C:/Users/verhi/OneDrive/Documents/NetBeansProjects/DragonTuto/dragonTaleTuto/src/Entity/Player.java</file>
-            <file>file:/C:/Users/verhi/OneDrive/Documents/NetBeansProjects/DragonTuto/dragonTaleTuto/src/Entity/Animation.java</file>
-            <file>file:/C:/Users/verhi/OneDrive/Documents/NetBeansProjects/DragonTuto/dragonTaleTuto/src/Entity/FireBall.java</file>
-            <file>file:/C:/Users/verhi/OneDrive/Documents/NetBeansProjects/DragonTuto/dragonTaleTuto/src/GameState/GameStateManager.java</file>
-            <file>file:/C:/Users/verhi/OneDrive/Documents/NetBeansProjects/DragonTuto/dragonTaleTuto/src/TileMap/TileMap.java</file>
+            <file>file:/C:/Users/verhi/OneDrive/Documents/NetBeansProjects/DragonTuto/dragonTaleTuto/src/Entity/MapObject.java</file>
+            <file>file:/C:/Users/verhi/OneDrive/Documents/NetBeansProjects/DragonTuto/dragonTaleTuto/src/Entity/Explosion.java</file>
         </group>
     </open-files>
 </project-private>
