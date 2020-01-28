@@ -28,6 +28,8 @@ public class Level1State extends GameState {
     private Background bg;
     
     private Player player;
+    private boolean playerStartedDying;
+    private boolean playerFinishedDying;
     
     private ArrayList<Enemy> enemies;
     public ArrayList<Explosion> explosions;
@@ -52,6 +54,8 @@ public class Level1State extends GameState {
         
         player = new Player(tileMap);
         player.setPosition(100, 150);//starting position
+        playerStartedDying = false;
+        playerFinishedDying = false;
         
         populateEnemies();
                 
@@ -90,9 +94,11 @@ public class Level1State extends GameState {
         //update player
         player.update();
         tileMap.setPosition(GamePanel.WIDTH/2 - player.getx(), GamePanel.HEIGHT/2 - player.gety());
-        if(player.isDead()) {
-            gsm.setState(GameStateManager.DEADSTATE);
+        if(player.isDead() && !playerStartedDying) {
+            playerStartedDying = true;
+            explosions.add(new Explosion(player.getx(), player.gety()));
         }
+        if(playerFinishedDying) gsm.setState(GameStateManager.DEADSTATE);
         
         //background scrolling
         bg.setPosition(tileMap.getx(), tileMap.gety());
@@ -142,6 +148,7 @@ public class Level1State extends GameState {
             explosions.get(i).setMapPosition((int)tileMap.getx(), (int)tileMap.gety());
             explosions.get(i).draw(g);
         }
+        if(explosions.isEmpty() && player.isDead() && playerStartedDying) playerFinishedDying = true;
         
         //draw hud
         hud.draw(g);
