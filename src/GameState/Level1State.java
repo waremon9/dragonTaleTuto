@@ -30,7 +30,7 @@ public class Level1State extends GameState {
     private Player player;
     
     private ArrayList<Enemy> enemies;
-    private ArrayList<Explosion> explosions;
+    public ArrayList<Explosion> explosions;
     
     private HUD hud;
     
@@ -60,7 +60,7 @@ public class Level1State extends GameState {
         hud = new HUD(player);
         
         bgMusic = new AudioPlayer("/res/Music/level1-1.mp3");
-        bgMusic.playLoop();
+        //bgMusic.playLoop();
         
     }
     
@@ -90,6 +90,9 @@ public class Level1State extends GameState {
         //update player
         player.update();
         tileMap.setPosition(GamePanel.WIDTH/2 - player.getx(), GamePanel.HEIGHT/2 - player.gety());
+        if(player.isDead()) {
+            gsm.setState(GameStateManager.DEADSTATE);
+        }
         
         //background scrolling
         bg.setPosition(tileMap.getx(), tileMap.gety());

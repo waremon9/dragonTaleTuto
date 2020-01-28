@@ -6,6 +6,7 @@
 package Entity;
 
 import Audio.AudioPlayer;
+import GameState.GameState;
 import TileMap.TileMap;
 import com.sun.javafx.scene.text.HitInfo;
 import java.awt.Graphics2D;
@@ -193,6 +194,8 @@ public class Player extends MapObject{
         flincTimer = System.nanoTime();
     }
     
+    public boolean isDead(){return dead;}
+    
     private void getNextPosition(){
         
         //movement
@@ -252,15 +255,17 @@ public class Player extends MapObject{
     public void update(){
         
         //update position
-        getNextPosition();
-        checkTileMapCollision();
-        if(ytemp>tileMap.height-14) {
-            xtemp = safeSpotx;
-            ytemp = safeSpoty;
-            hit(round(maxHealth/5));
+        if(!dead){
+            getNextPosition();
+            checkTileMapCollision();
+            if(ytemp>tileMap.height-14) {
+                xtemp = safeSpotx;
+                ytemp = safeSpoty;
+                hit(round(maxHealth/5));
+            }
+            setPosition(xtemp, ytemp);
         }
-        setPosition(xtemp, ytemp);
-        
+            
         //check attack has stopped
         if(currentAction == SCRATCHING){
             if(animation.hasPlayedOnce()) scratching = false;
@@ -353,7 +358,7 @@ public class Player extends MapObject{
         
         animation.update();
         
-        //set sirection
+        //set direction
         if(currentAction != SCRATCHING && currentAction != FIREBALL){
             if(right)facingRight = true;
             if(left) facingRight = false;
@@ -370,7 +375,9 @@ public class Player extends MapObject{
         }
         
         //draw player
-        if(flinching){
+        if (dead){
+            return;
+        }else if(flinching){
             long elapsed = (System.nanoTime()-flincTimer)/1000000;
             if(elapsed / 100%2 == 0){ //blinking every 100 milliseconde
                 return;
