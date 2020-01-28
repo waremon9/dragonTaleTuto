@@ -38,8 +38,8 @@ public class TileMap {
     private int tileSize;
     private int numRows;
     private int numCols;
-    private int width;
-    private int height;
+    public int width;
+    public int height;
     
     //tileset
     private BufferedImage tileset;
@@ -47,7 +47,7 @@ public class TileMap {
     private Tile[][] tiles;
     
     //drawing
-    private int rowOffset; //where to start drawing cause we wont draw thousand of tile 60*per second
+    private int rowOffset; //where to start drawing cause we wont draw thousand of tile 60* per second
     private int colOffset;
     private int numRowsToDraw;//how many after start
     private int numColsToDraw;

@@ -76,6 +76,9 @@ public abstract class MapObject {
     protected double jumpStart;
     protected double stopJumpSpeed;//for mechanic when you press longer the jump button to go higher
     
+    //respaw point
+    protected double safeSpotx;
+    protected double safeSpoty;
     
     //constructor
     public MapObject(TileMap tm){
@@ -205,6 +208,7 @@ public abstract class MapObject {
     }
     
     public void draw(Graphics2D g){
+        
         if(facingRight){
             g.drawImage(animation.getImage(), (int)(x+xmap-width/2), (int)(y+ymap-height/2), null);
         }else{//flip the image

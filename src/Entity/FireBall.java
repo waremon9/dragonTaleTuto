@@ -32,9 +32,9 @@ public class FireBall extends MapObject{
         if(right) dx = moveSpeed;
         else dx = -moveSpeed;
         
-        width = 30;
+        width = 30;//size in spritesheet
         height = 30;
-        cwidth = 14;
+        cwidth = 14;//real hitbox
         cheight = 14;
         
         //load sprites

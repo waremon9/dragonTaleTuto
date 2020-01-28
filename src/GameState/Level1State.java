@@ -51,7 +51,7 @@ public class Level1State extends GameState {
         bg = new Background("/res/Backgrounds/grassbg1.gif", 0.1);
         
         player = new Player(tileMap);
-        player.setPosition(100, 100);//starting position
+        player.setPosition(100, 150);//starting position
         
         populateEnemies();
                 
@@ -70,7 +70,7 @@ public class Level1State extends GameState {
         
         Slugger s;
         Point[] points = new Point[]{
-            new Point(200, 198),
+            new Point(400, 108),
             new Point(860, 198),
             new Point(1525, 198),
             new Point(1680, 198),

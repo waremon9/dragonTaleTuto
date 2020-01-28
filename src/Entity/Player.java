@@ -10,6 +10,7 @@ import TileMap.TileMap;
 import com.sun.javafx.scene.text.HitInfo;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import static java.lang.Math.round;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.imageio.ImageIO;
@@ -228,6 +229,8 @@ public class Player extends MapObject{
         if(jumping && !falling){
             sfx.get("jump").play();
             dy = jumpStart;
+            safeSpotx = x;
+            safeSpoty = y;
             falling = true;
         }
         
@@ -251,6 +254,11 @@ public class Player extends MapObject{
         //update position
         getNextPosition();
         checkTileMapCollision();
+        if(ytemp>tileMap.height-14) {
+            xtemp = safeSpotx;
+            ytemp = safeSpoty;
+            hit(round(maxHealth/5));
+        }
         setPosition(xtemp, ytemp);
         
         //check attack has stopped
