@@ -17,6 +17,7 @@ public class Enemy extends MapObject{
     protected int maxHealth;
     protected boolean dead;
     protected int damage;
+    protected int xp;
     
     protected boolean flinching;
     protected long flinchTimer;
@@ -28,12 +29,16 @@ public class Enemy extends MapObject{
     public boolean isDead(){return dead;}
     public int getDamage(){return damage;}
     
-    public void hit(int damage){
-        if(dead || flinching) return;
+    public int hit(int damage){
+        if(dead || flinching) return 0;
         health -= damage;
-        if(health <= 0) dead = true;
+        if(health <= 0) {
+            dead = true;
+            return xp;
+        }
         flinching = true;
         flinchTimer = System.nanoTime();
+        return 0;
     }
     
     public void update(){}

@@ -38,6 +38,8 @@ public class Slugger extends Enemy{
         health = maxHealth = 4;
         damage = 1;
         
+        xp = 10;
+        
         //load sprites
         try{
             

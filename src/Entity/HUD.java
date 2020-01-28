@@ -19,7 +19,8 @@ public class HUD {
     
     private Player player;
     
-    private BufferedImage image;
+    private BufferedImage healtFire;
+    private BufferedImage XP;
     private Font font;
     
     public HUD(Player p){
@@ -27,7 +28,8 @@ public class HUD {
         
         try{
             
-            image = ImageIO.read(getClass().getResourceAsStream("/res/HUD/hud.gif"));
+            healtFire = ImageIO.read(getClass().getResourceAsStream("/res/HUD/hud.gif"));
+            XP = ImageIO.read(getClass().getResourceAsStream("/res/HUD/xp.gif"));
             font = new Font("Arial", Font.PLAIN, 14);
             
         }catch(Exception e){
@@ -36,12 +38,13 @@ public class HUD {
     }
     
     public void draw(Graphics2D g){
-        
-        g.drawImage(image, 0, 10, null);
+        g.drawImage(healtFire, 0, 5, null);
+        g.drawImage(XP, 100, 5, null);
         g.setFont(font);
         g.setColor(Color.WHITE);
-        g.drawString(player.getHealth() + "/" + player.getMaxHealth(), 30, 25);
-        g.drawString(player.getFire()/100 + "/" + player.getMaxFire()/100, 30, 45);
+        g.drawString(player.getHealth() + " / " + player.getMaxHealth(), 25, 20);
+        g.drawString(player.getFire()/100 + " / " + player.getMaxFire()/100, 20, 40);
+        g.drawString(player.getXp() + " / " + player.getXpNext(), 135, 20);
         
     }
     

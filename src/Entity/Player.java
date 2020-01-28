@@ -30,6 +30,8 @@ public class Player extends MapObject{
     private boolean dead;
     private boolean  flinching;
     private long flincTimer;
+    private int xp;
+    private int xpNext;
     
     //fireball
     private boolean firing;
@@ -84,6 +86,8 @@ public class Player extends MapObject{
         
         health = maxHealth = 5;
         fire = maxFire = 2500;
+        xp = 0;
+        xpNext = 100;
         
         fireCost = 200;
         fireBallDamage = 5;
@@ -129,6 +133,8 @@ public class Player extends MapObject{
     public int getMaxHealth(){return maxHealth;}
     public int getFire(){return fire;}
     public int getMaxFire(){return maxFire;}
+    public int getXp(){return xp;}
+    public int getXpNext(){return xpNext;}
     
     public void setFiring(){
         firing = true;
@@ -155,7 +161,7 @@ public class Player extends MapObject{
                             e.gety()>y-height/2 &&
                             e.gety()<y+height/2
                     ) {
-                       e.hit(scratchDamage);
+                        gainXp(e.hit(scratchDamage));
                     }
                 }else{
                     if(
@@ -164,7 +170,7 @@ public class Player extends MapObject{
                             e.gety()>y-height/2 &&
                             e.gety()<y+height/2
                     ) {
-                       e.hit(scratchDamage);
+                       gainXp(e.hit(scratchDamage));
                     }
                 }
             }
@@ -172,7 +178,7 @@ public class Player extends MapObject{
             //fireballs
             for (int j = 0; j < fireBalls.size(); j++) {
                 if(fireBalls.get(j).intersects(e)){
-                    e.hit(fireBallDamage);
+                    gainXp(e.hit(fireBallDamage));
                     fireBalls.get(j).setHit();
                     break;
                 }
@@ -183,6 +189,11 @@ public class Player extends MapObject{
                 hit(e.getDamage());
             }
         }
+    }
+    
+    public void gainXp(int gain){
+        xp += gain;
+        //checkLvlUp();
     }
     
     public void hit (int damage){
