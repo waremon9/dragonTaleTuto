@@ -35,7 +35,7 @@ public class Slugger extends Enemy{
         cwidth = 25;
         cheight = 25;
         
-        health = maxHealth = 2;
+        health = maxHealth = 4;
         damage = 1;
         
         //load sprites
@@ -118,6 +118,14 @@ public class Slugger extends Enemy{
         //if(notOnScreen()) return;
         
         setMapPosition();
+        
+        //flinching
+        if(flinching){
+            long elapsed = (System.nanoTime()-flinchTimer)/1000000;
+            if(elapsed / 100%2 == 0){ //blinking every 100 milliseconde
+                return;
+            }
+        }
         
         super.draw(g);
         
