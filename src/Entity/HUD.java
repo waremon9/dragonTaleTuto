@@ -42,10 +42,10 @@ public class HUD {
         g.drawImage(XP, 100, 5, null);
         g.setFont(font);
         g.setColor(Color.WHITE);
-        g.drawString(player.getHealth() + " / " + player.getMaxHealth(), 25, 20);
-        g.drawString(player.getFire()/100 + " / " + player.getMaxFire()/100, 20, 40);
-        g.drawString(player.getXp() + " / " + player.getXpNext(), 135, 20);
-        
+        g.drawString(player.getHealth() + " / " + player.getMaxHealth(), 25, 19);
+        g.drawString(player.getFire()/100 + " / " + player.getMaxFire()/100, 20, 41);
+        g.drawString(player.getLvl()+"", 125, 20);
+        g.drawString(player.getXp() + " / " + player.getXpNext(), 170, 20);
     }
     
 }

@@ -32,6 +32,7 @@ public class Player extends MapObject{
     private long flincTimer;
     private int xp;
     private int xpNext;
+    private int lvl;
     
     //fireball
     private boolean firing;
@@ -88,6 +89,7 @@ public class Player extends MapObject{
         fire = maxFire = 2500;
         xp = 0;
         xpNext = 100;
+        lvl = 1;
         
         fireCost = 200;
         fireBallDamage = 5;
@@ -135,6 +137,7 @@ public class Player extends MapObject{
     public int getMaxFire(){return maxFire;}
     public int getXp(){return xp;}
     public int getXpNext(){return xpNext;}
+    public int getLvl(){return lvl;}
     
     public void setFiring(){
         firing = true;
@@ -193,7 +196,16 @@ public class Player extends MapObject{
     
     public void gainXp(int gain){
         xp += gain;
-        //checkLvlUp();
+        checkLvlUp();
+    }
+    
+    private void checkLvlUp (){
+        if(xp>=xpNext){
+            lvl++;
+            xp-=xpNext;
+            xpNext*=1.5;
+            //lvlUp();
+        }
     }
     
     public void hit (int damage){
