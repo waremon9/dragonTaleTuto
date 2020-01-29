@@ -127,7 +127,7 @@ public abstract class MapObject {
         
         calculateCorners(x, ydest);
         if(dy<0){ //mean we go upward so check top 2 corners
-            if(topLeft || topLeft){//we hit the ceiling
+            if(topLeft || topRight){//we hit the ceiling
                 dy = 0;
                 ytemp = curRow * tileSize + cheight/2;
             }else{//no ceiling so we keep going

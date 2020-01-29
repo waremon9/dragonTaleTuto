@@ -92,10 +92,10 @@ public class Player extends MapObject{
         lvl = 1;
         
         fireCost = 200;
-        fireBallDamage = 5;
+        fireBallDamage = 3;
         fireBalls = new ArrayList<FireBall>();
         
-        scratchDamage = 8;
+        scratchDamage = 5;
         scratchRange = 40;
         
         //load sprites (all the sprites of the 7 differrent animation
@@ -138,6 +138,9 @@ public class Player extends MapObject{
     public int getXp(){return xp;}
     public int getXpNext(){return xpNext;}
     public int getLvl(){return lvl;}
+    
+    //position for test in lvl
+    public String getPosition(){return "x : "+x+" y : "+y;}
     
     public void setFiring(){
         firing = true;

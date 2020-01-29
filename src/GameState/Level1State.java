@@ -17,6 +17,7 @@ import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import Audio.AudioPlayer;
+import Entity.Enemies.Arachnik;
 
 /**
  *
@@ -73,17 +74,35 @@ public class Level1State extends GameState {
         enemies = new ArrayList<Enemy>();
         
         Slugger s;
-        Point[] points = new Point[]{
+        Point[] pointsS = new Point[]{
             new Point(400, 108),
             new Point(860, 198),
             new Point(1525, 198),
             new Point(1680, 198),
             new Point(1800, 198)
         };
-        for (int i = 0; i < points.length; i++) {
+        for (int i = 0; i < pointsS.length; i++) {
             s = new Slugger(tileMap);
-            s.setPosition(points[i].x, points[i].y);
+            s.setPosition(pointsS[i].x, pointsS[i].y);
             enemies.add(s);
+        }
+        
+        Arachnik a;
+        Point[] pointsA = new Point[]{
+            new Point(1013, 198),
+            new Point(1200, 150),
+            new Point(1381, 80),
+            new Point(1575, 130),
+            new Point(1828, 41),
+            new Point(2000, 106),
+            new Point(2045, 76),
+            new Point(2424, 163),
+            new Point(2830, 130)
+        };
+        for (int i = 0; i < pointsA.length; i++) {
+            a = new Arachnik(tileMap);
+            a.setPosition(pointsA[i].x, pointsA[i].y);
+            enemies.add(a);
         }
         
         
@@ -164,6 +183,9 @@ public class Level1State extends GameState {
         if(k==KeyEvent.VK_D) player.setGliding(true);
         if(k==KeyEvent.VK_F) player.setScratching();
         if(k==KeyEvent.VK_G) player.setFiring();
+        
+        if(k==KeyEvent.VK_P) System.out.println(player.getPosition());
+        
     }
     
     public void keyReleased(int k){
