@@ -6,9 +6,7 @@
 package Entity;
 
 import Audio.AudioPlayer;
-import GameState.GameState;
 import TileMap.TileMap;
-import com.sun.javafx.scene.text.HitInfo;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import static java.lang.Math.round;
@@ -152,8 +150,10 @@ public class Player extends MapObject{
         gliding = b;
     }
     
-    public void checkAttack(ArrayList<Enemy> enemies){
+    public ArrayList<Damage> checkAttack(ArrayList<Enemy> enemies, TileMap tm){
         //loop through all enemies
+        ArrayList<Damage> damages = new ArrayList<Damage>();
+        int enemyHit;
         for (int i = 0; i < enemies.size(); i++) {
             
             Enemy e = enemies.get(i);
@@ -167,7 +167,11 @@ public class Player extends MapObject{
                             e.gety()>y-height/2 &&
                             e.gety()<y+height/2
                     ) {
-                        gainXp(e.hit(scratchDamage));
+                        enemyHit = e.hit(scratchDamage);
+                        if(enemyHit != -1){
+                            gainXp(enemyHit);
+                            damages.add(new Damage(tm, scratchDamage, e.getx(), e.gety()));
+                        }
                     }
                 }else{
                     if(
@@ -176,7 +180,11 @@ public class Player extends MapObject{
                             e.gety()>y-height/2 &&
                             e.gety()<y+height/2
                     ) {
-                       gainXp(e.hit(scratchDamage));
+                        enemyHit = e.hit(scratchDamage);
+                        if(enemyHit != -1){
+                            gainXp(enemyHit);
+                            damages.add(new Damage(tm, scratchDamage, e.getx(), e.gety()));
+                        }
                     }
                 }
             }
@@ -184,7 +192,11 @@ public class Player extends MapObject{
             //fireballs
             for (int j = 0; j < fireBalls.size(); j++) {
                 if(fireBalls.get(j).intersects(e)){
-                    gainXp(e.hit(fireBallDamage));
+                    enemyHit = e.hit(fireBallDamage);
+                    if(enemyHit!=-1){
+                        gainXp(enemyHit);
+                        damages.add(new Damage(tm, fireBallDamage, e.getx(), e.gety()));
+                    }
                     fireBalls.get(j).setHit();
                     break;
                 }
@@ -192,9 +204,13 @@ public class Player extends MapObject{
             
             //check enemy collision
             if(intersects(e)){
-                hit(e.getDamage());
+                boolean reallyHit = hit(e.getDamage());
+                if(reallyHit){
+                    damages.add(new Damage(tm, e.getDamage(), x, y));
+                }
             }
         }
+        return damages;
     }
     
     public void gainXp(int gain){
@@ -211,13 +227,14 @@ public class Player extends MapObject{
         }
     }
     
-    public void hit (int damage){
-        if(flinching) return;
+    public boolean hit (int damage){
+        if(flinching || dead) return false;
         health -= damage;
         if(health<0) health = 0;
         if(health==0) dead = true;
         flinching = true;
         flincTimer = System.nanoTime();
+        return true;
     }
     
     public boolean isDead(){return dead;}

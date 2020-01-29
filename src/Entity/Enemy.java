@@ -6,6 +6,8 @@
 package Entity;
 
 import TileMap.TileMap;
+import GameState.Level1State;
+import java.util.ArrayList;
 
 /**
  *
@@ -29,8 +31,12 @@ public class Enemy extends MapObject{
     public boolean isDead(){return dead;}
     public int getDamage(){return damage;}
     
+    
+    //if cannot hit, return null array, else return xp if dead and true it hit
     public int hit(int damage){
-        if(dead || flinching) return 0;
+        if(dead || flinching){
+            return -1;
+        }
         health -= damage;
         if(health <= 0) {
             dead = true;

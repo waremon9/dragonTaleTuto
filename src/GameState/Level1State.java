@@ -17,6 +17,7 @@ import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import Audio.AudioPlayer;
+import Entity.Damage;
 import Entity.Enemies.Arachnik;
 
 /**
@@ -33,7 +34,8 @@ public class Level1State extends GameState {
     private boolean playerFinishedDying;
     
     private ArrayList<Enemy> enemies;
-    public ArrayList<Explosion> explosions;
+    private ArrayList<Explosion> explosions;
+    private ArrayList<Damage> damages;
     
     private HUD hud;
     
@@ -61,6 +63,7 @@ public class Level1State extends GameState {
         populateEnemies();
                 
         explosions = new ArrayList<Explosion>();
+        damages = new ArrayList<Damage>();
         
         hud = new HUD(player);
         
@@ -122,8 +125,11 @@ public class Level1State extends GameState {
         //background scrolling
         bg.setPosition(tileMap.getx(), tileMap.gety());
         
-        //attack enemies
-        player.checkAttack(enemies);
+        //attack enemies and add the new Damages when hit
+        ArrayList<Damage> newDamages = player.checkAttack(enemies, tileMap);
+        for (Damage dmg : newDamages) { 
+            damages.add(dmg);
+        }
         
         //update all enemies
         for(int i= 0; i < enemies.size(); i++){
@@ -143,7 +149,17 @@ public class Level1State extends GameState {
                     explosions.remove(i);
                     i--;
             }
-        }        
+        }
+        
+        //update damages
+        for(int i = 0; i < damages.size(); i++) {
+            damages.get(i).update();
+            if(damages.get(i).shouldRemove()) {
+                    damages.remove(i);
+                    i--;
+            }
+        }
+        
     }
     
     public void draw(Graphics2D g){
@@ -168,6 +184,11 @@ public class Level1State extends GameState {
             explosions.get(i).draw(g);
         }
         if(explosions.isEmpty() && player.isDead() && playerStartedDying) playerFinishedDying = true;
+        
+        //draw damages
+        for(int i = 0; i < damages.size(); i++){
+            damages.get(i).draw(g);
+        }
         
         //draw hud
         hud.draw(g);
@@ -196,5 +217,5 @@ public class Level1State extends GameState {
         if(k==KeyEvent.VK_SPACE) player.setJumping(false);
         if(k==KeyEvent.VK_D) player.setGliding(false);
     }
-
+    
 }
