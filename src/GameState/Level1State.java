@@ -92,15 +92,15 @@ public class Level1State extends GameState {
         
         Arachnik a;
         Point[] pointsA = new Point[]{
-            new Point(1013, 198),
+            //new Point(1013, 198),
             new Point(1200, 150),
-            new Point(1381, 80),
-            new Point(1575, 130),
-            new Point(1828, 41),
-            new Point(2000, 106),
-            new Point(2045, 76),
-            new Point(2424, 163),
-            new Point(2830, 130)
+            //new Point(1381, 80),
+            //new Point(1575, 130),
+            //new Point(1828, 41),
+            //new Point(2000, 106),
+            //new Point(2045, 76),
+            //new Point(2424, 163),
+            //new Point(2830, 130)
         };
         for (int i = 0; i < pointsA.length; i++) {
             a = new Arachnik(tileMap);

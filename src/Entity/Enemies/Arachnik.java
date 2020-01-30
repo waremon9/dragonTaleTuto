@@ -32,7 +32,7 @@ public class Arachnik extends Enemy{
         cwidth = 28;
         cheight = 23;
         
-        health = maxHealth = 6;
+        health = maxHealth = 20;
         damage = 2;
         
         xp = 18;
@@ -93,7 +93,7 @@ public class Arachnik extends Enemy{
         }
         
         //if hits a wall, go other direction
-        if(down && (dy == 0 || y>=tileMap.height-30)){//dy set to 0 when wallhit in MapObject
+        if(down && (dy == 0 || y>=tileMap.height-50)){//dy set to 0 when wallhit in MapObject
             down = false;
             up = true;
         }else if(up && (dy == 0 || y<=50)){//dy set to 0 when wallhit in MapObject

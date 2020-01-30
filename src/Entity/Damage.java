@@ -31,7 +31,7 @@ public class Damage extends MapObject{
         facingRight = true;
         
         this.x=x;
-        this.y=y-30;
+        this.y=y;
         
         moveSpeed = 0.2;
         dy = -3;
