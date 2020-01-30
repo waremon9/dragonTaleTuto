@@ -14,12 +14,15 @@ import java.util.ArrayList;
 public class GameStateManager {
     
     private GameState[] gameStates;
+    private GameState savedState;
+    private int savedStateNumber;
     private int currentState;
     
-    public static final int NUMGAMESTATES = 3;
+    public static final int NUMGAMESTATES = 4;
     public static final int MENUSTATE = 0;
     public static final int DEADSTATE = 1;
     public static final int LEVEL1STATE = 2;
+    public static final int PAUSESTATE = 3;
     
     public GameStateManager(){
         
@@ -40,6 +43,9 @@ public class GameStateManager {
         if(state == DEADSTATE){
            gameStates[state] = new DeadState(this);
         }
+        if(state == PAUSESTATE){
+           gameStates[state] = new PauseState(this);
+        }
     }
     
     private void unloadState(int state){
@@ -47,11 +53,19 @@ public class GameStateManager {
     }
     
     public void setState(int state){
+        if(state == PAUSESTATE){
+            savedState = gameStates[currentState];
+            savedStateNumber = currentState;//if game is paused, save the level state to not reset it
+        } 
         unloadState(currentState);
         currentState = state;
         loadState(currentState);
-        
-        //gameStates[currentState].init();
+    }
+    
+    public void unpauseLevelState(){
+        unloadState(currentState);
+        currentState = savedStateNumber;
+        gameStates[currentState] = savedState;
     }
     
     public void update(){

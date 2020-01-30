@@ -216,6 +216,8 @@ public class Level1State extends GameState {
         if(k==KeyEvent.VK_F) player.setScratching();
         if(k==KeyEvent.VK_G) player.setFiring();
         
+        if(k==KeyEvent.VK_O) gsm.setState(GameStateManager.PAUSESTATE);
+        
         if(k==KeyEvent.VK_P) System.out.println(player.getPosition());
         
     }
