@@ -57,7 +57,7 @@ public class Level1State extends GameState {
         bg = new Background("/res/Backgrounds/grassbg1.gif", 0.1);
         
         player = new Player(tileMap);
-        player.setPosition(100, 150);//starting position
+        player.setPosition(2700, 150);//starting position
         playerStartedDying = false;
         playerFinishedDying = false;
         
@@ -110,8 +110,8 @@ public class Level1State extends GameState {
             new Point(1828, 41),
             new Point(2000, 106),
             new Point(2045, 76),
-            new Point(2424, 163),
-            new Point(2830, 130)
+            new Point(2425, 163),
+            new Point(2830, 160)
         };
         for (int i = 0; i < pointsA.length; i++) {
             a = new Arachnik(tileMap);
