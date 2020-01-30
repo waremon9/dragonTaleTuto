@@ -7,6 +7,8 @@ package GameState;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
 /**
  *
  * @author verhi
@@ -25,6 +27,8 @@ public class DeadState extends GameState{
 
     private Font font;
     
+    private BufferedImage backHud;
+    
     public DeadState(GameStateManager gsm){
         
         this.gsm = gsm;
@@ -35,13 +39,24 @@ public class DeadState extends GameState{
                         Font.PLAIN,
                         28);
 
-        font = new Font("Arial", Font.PLAIN, 12);
+        font = new Font("Arial", Font.PLAIN, 16);
+        
+        try{
+            
+            backHud = ImageIO.read(getClass().getResourceAsStream("/res/HUD/pause.gif"));
+            
+        }catch(Exception e){
+            e.printStackTrace();
+        }
 
     }
     
     public void init(){}
     public void update(){}
     public void draw(Graphics2D g){
+        
+        //draw back hud
+        g.drawImage(backHud, 30, 20, null);
 
         // draw title
         g.setColor(titleColor);
@@ -56,7 +71,7 @@ public class DeadState extends GameState{
             }else{
                 g.setColor(Color.RED);
             }
-            g.drawString(options[i], 145,140+i*15);
+            g.drawString(options[i], 125,110+i*25);
         }
     }
     

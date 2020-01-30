@@ -5,10 +5,13 @@
  */
 package GameState;
 
+import Entity.HUD;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
 
 /**
  *
@@ -18,7 +21,7 @@ public class PauseState extends GameState{
     
     private int currentChoice = 0;
     private String[] options = {
-            "Contitnue",
+            "Continue",
             "Help",
             "Menu"
     };
@@ -27,6 +30,8 @@ public class PauseState extends GameState{
     private Font titleFont;
 
     private Font font;
+    
+    private BufferedImage backHud;
     
     public PauseState(GameStateManager gsm){
         
@@ -38,7 +43,15 @@ public class PauseState extends GameState{
                         Font.PLAIN,
                         28);
 
-        font = new Font("Arial", Font.PLAIN, 12);
+        font = new Font("Arial", Font.PLAIN, 16);
+        
+        try{
+            
+            backHud = ImageIO.read(getClass().getResourceAsStream("/res/HUD/pause.gif"));
+            
+        }catch(Exception e){
+            e.printStackTrace();
+        }
 
     }
     
@@ -46,6 +59,9 @@ public class PauseState extends GameState{
     public void update(){}
     public void draw(Graphics2D g){
 
+        //draw back hud
+        g.drawImage(backHud, 30, 20, null);
+        
         // draw title
         g.setColor(titleColor);
         g.setFont(titleFont);
@@ -59,7 +75,7 @@ public class PauseState extends GameState{
             }else{
                 g.setColor(Color.RED);
             }
-            g.drawString(options[i], 145,140+i*15);
+            g.drawString(options[i], 125,110+i*25);
         }
     }
     
