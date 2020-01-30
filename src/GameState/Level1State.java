@@ -57,7 +57,7 @@ public class Level1State extends GameState {
         bg = new Background("/res/Backgrounds/grassbg1.gif", 0.1);
         
         player = new Player(tileMap);
-        player.setPosition(2700, 150);//starting position
+        player.setPosition(100, 150);//starting position
         playerStartedDying = false;
         playerFinishedDying = false;
         

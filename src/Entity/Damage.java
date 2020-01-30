@@ -84,6 +84,11 @@ public class Damage extends MapObject{
             dy += moveSpeed;
         }
         
+        if(y>tileMap.height-10){
+            addHit();
+            dy = -3/hit;
+        }
+        
     }
     
     public int getDamage(){return damage;}
