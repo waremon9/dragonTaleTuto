@@ -6,8 +6,6 @@
 package Entity;
 
 import TileMap.TileMap;
-import GameState.Level1State;
-import java.util.ArrayList;
 
 /**
  *

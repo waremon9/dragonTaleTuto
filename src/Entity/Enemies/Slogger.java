@@ -10,22 +10,23 @@ import Entity.Enemy;
 import TileMap.TileMap;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.util.Random;
 import javax.imageio.ImageIO;
 
 /**
  *
  * @author verhi
  */
-public class Slugger extends Enemy{
+public class Slogger extends Enemy{
     
     private BufferedImage[] sprites;
  
-    public Slugger(TileMap tm) {
+    public Slogger(TileMap tm) {
         
         super(tm);
         
-        moveSpeed = 0.3;
-        maxSpeed = 0.3;
+        moveSpeed = 0.1;
+        maxSpeed = 0.5;
         
         fallSpeed = 0.2;
         maxFallSpeed = 10.0;
@@ -35,15 +36,15 @@ public class Slugger extends Enemy{
         cwidth = 25;
         cheight = 25;
         
-        health = maxHealth = 12;
-        damage = 1;
+        health = maxHealth = 32;
+        damage = 2;
         
-        xp = 10;
+        xp = 30;
         
         //load sprites
         try{
             
-            BufferedImage spritesheet = ImageIO.read(getClass().getResourceAsStream("/res/Sprites/Enemies/Slugger.gif"));
+            BufferedImage spritesheet = ImageIO.read(getClass().getResourceAsStream("/res/Sprites/Enemies/Slogger.gif"));
             
             sprites = new BufferedImage[3];
             for(int i = 0; i<sprites.length; i++){
@@ -56,10 +57,11 @@ public class Slugger extends Enemy{
         
         animation = new Animation();
         animation.setFrames(sprites);
-        animation.setDelay(300);
+        animation.setDelay(200);
         
-        right = true;
-        facingRight = true;
+        Random rd = new Random();
+        facingRight = right = rd.nextBoolean();
+        left = !right;
         
     }
     

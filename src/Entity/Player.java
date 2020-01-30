@@ -83,8 +83,8 @@ public class Player extends MapObject{
         
         facingRight = true;
         
-        health = maxHealth = 5;
-        fire = maxFire = 2500;
+        health = maxHealth = 10;
+        fire = maxFire = 1500;
         xp = 0;
         xpNext = 100;
         lvl = 1;

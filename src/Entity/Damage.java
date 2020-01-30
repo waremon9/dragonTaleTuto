@@ -39,10 +39,10 @@ public class Damage extends MapObject{
         Random rd = new Random(); // creating Random object
         dx = (rd.nextDouble()-0.5)*2; //random between -1 and 1
         
-        width = 30;//size in spritesheet
-        height = 30;
-        cwidth = 20;//real hitbox
-        cheight = 27;
+        width = 20;//size in spritesheet
+        height = 20;
+        cwidth = 10;//real hitbox
+        cheight = 10;
         
         remove = false;
         hit = 0;

@@ -93,7 +93,7 @@ public class Arachnik extends Enemy{
         }
         
         //if hits a wall, go other direction
-        if(down && (dy == 0 || y>=tileMap.height-50)){//dy set to 0 when wallhit in MapObject
+        if(down && (dy == 0 || y>=tileMap.height-60)){//dy set to 0 when wallhit in MapObject
             down = false;
             up = true;
         }else if(up && (dy == 0 || y<=50)){//dy set to 0 when wallhit in MapObject
@@ -107,7 +107,6 @@ public class Arachnik extends Enemy{
     }
     
     public void draw(Graphics2D g){
-        //if(notOnScreen()) return;
         
         setMapPosition();
         
