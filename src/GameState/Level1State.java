@@ -70,7 +70,6 @@ public class Level1State extends GameState {
         
         bgMusic = new AudioPlayer("/res/Music/level1-1.mp3");
         //bgMusic.playLoop();
-        
     }
     
     private void populateEnemies(){
@@ -218,7 +217,7 @@ public class Level1State extends GameState {
         
         if(k==KeyEvent.VK_O) gsm.setState(GameStateManager.PAUSESTATE);
         
-        if(k==KeyEvent.VK_P) System.out.println(player.getPosition());
+        if(k==KeyEvent.VK_P) System.out.println(player.getPosition());;
         
     }
     

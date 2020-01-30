@@ -67,6 +67,8 @@ public class Slogger extends Enemy{
     
     private void getNextPosition(){
         
+        isAboutToFall();
+        
         //movement
         if(left){
             dx -= moveSpeed;
@@ -84,7 +86,6 @@ public class Slogger extends Enemy{
         if(falling){
             dy += fallSpeed;
         }
-        
     }
     
     public void update(){

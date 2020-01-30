@@ -114,6 +114,18 @@ public abstract class MapObject {
         
     }
     
+    public void isAboutToFall(){
+        if(left && !bottomLeft){
+            left = false;
+            right = facingRight = true;
+            dx = 0;
+        }else if(right && !bottomRight){
+            right = facingRight = false;
+            left = true;
+            dx = 0;
+        }
+    }
+    
     public void checkTileMapCollision(){
         
         curCol = (int)x/tileSize;
