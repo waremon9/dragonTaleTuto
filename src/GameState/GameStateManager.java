@@ -16,14 +16,14 @@ import java.nio.file.Files;
 public class GameStateManager {
     
     private GameState[] gameStates;
-    protected Level1State savedState;
+    protected LevelState savedState;
     private int savedStateNumber;
     private int currentState;
     
     public static final int NUMGAMESTATES = 4;
     public static final int MENUSTATE = 0;
     public static final int DEADSTATE = 1;
-    public static final int LEVEL1STATE = 2;
+    public static final int LEVELSTATE = 2;
     public static final int PAUSESTATE = 3;
     
     public GameStateManager(){
@@ -39,8 +39,8 @@ public class GameStateManager {
         if(state == MENUSTATE){
            gameStates[state] = new MenuState(this);
         }
-        if(state == LEVEL1STATE){
-           gameStates[state] = new Level1State(this);
+        if(state == LEVELSTATE){
+           gameStates[state] = new LevelState(this);
         }
         if(state == DEADSTATE){
            gameStates[state] = new DeadState(this);
@@ -56,7 +56,7 @@ public class GameStateManager {
     
     public void setState(int state){
         if(state == PAUSESTATE){
-            savedState = (Level1State) gameStates[currentState];
+            savedState = (LevelState) gameStates[currentState];
             savedStateNumber = currentState;//if game is paused, save the level state to not reset it
         } 
         unloadState(currentState);

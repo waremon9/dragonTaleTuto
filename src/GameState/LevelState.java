@@ -13,23 +13,26 @@ import Entity.Player;
 import Main.GamePanel;
 import TileMap.*;
 import java.awt.Graphics2D;
-import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import Audio.AudioPlayer;
 import Entity.Damage;
 import Entity.Enemies.Arachnik;
 import Entity.Enemies.Slogger;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.file.Files;
 
 /**
  *
  * @author verhi
  */
-public class Level1State extends GameState {
+public class LevelState extends GameState {
     
     private TileMap tileMap;
+    private String bgString;
     private Background bg;
     
     private Player player;
@@ -42,23 +45,26 @@ public class Level1State extends GameState {
     
     private HUD hud;
     
+    private String bgMusicString;
     private AudioPlayer bgMusic;
     
-    private static File savePlayer=new File(System.getenv("HOME"), "save/.Player_save.txt");
+    private static File savePlayer = new File(System.getenv("HOME"), "save/.Player_save.txt");
     
-    public Level1State(GameStateManager gsm){
+    public LevelState(GameStateManager gsm){
         this.gsm = gsm;
         init();
     }
     
+    private String currentLevel;
+    
     //implement abstract function
     public void init(){
-        tileMap = new TileMap(30); //size of tile in param
-        tileMap.loadTile("/res/Tilesets/grasstileset.gif");
-        tileMap.loadMap("/res/Maps/level1-1.map");
-        tileMap.setPosition(0, 0);
         
-        bg = new Background("/res/Backgrounds/grassbg1.gif", 0.1);
+        currentLevel = "/res/Maps/levelTest.map";
+        
+        tileMap = new TileMap(30); //size of tile in param
+        tileMap.loadFullMap(currentLevel);
+        tileMap.setPosition(0, 0);
         
         
         //load the player
@@ -76,68 +82,80 @@ public class Level1State extends GameState {
             e.printStackTrace();
         }
         
-        player.setPosition(100, 150);//starting position
+        player.setPosition(400, 50);//starting position
         playerStartedDying = false;
         playerFinishedDying = false;
         
-        populateEnemies();
+        populateEnemyAndBgMusic();
                 
         explosions = new ArrayList<Explosion>();
         damages = new ArrayList<Damage>();
         
         hud = new HUD(player);
         
-        bgMusic = new AudioPlayer("/res/Music/level1-1.mp3");
+        bg = new Background(bgString, 0.1);
+        
+        bgMusic = new AudioPlayer(bgMusicString);
         //bgMusic.playLoop();
     }
     
-    private void populateEnemies(){
+    private void populateEnemyAndBgMusic(){ //get background and music here to not open the file even more later
         
         enemies = new ArrayList<Enemy>();
         
-        Slugger su;
-        Point[] pointsSu = new Point[]{
-            //new Point(400, 108),
-            new Point(860, 198),
-            new Point(1525, 198),
-            new Point(1680, 198),
-            new Point(1800, 198)
-        };
-        for (int i = 0; i < pointsSu.length; i++) {
-            su = new Slugger(tileMap);
-            su.setPosition(pointsSu[i].x, pointsSu[i].y);
-            enemies.add(su);
+        try{
+            
+            InputStream in = getClass().getResourceAsStream(currentLevel);
+            BufferedReader br = new BufferedReader(new InputStreamReader(in));
+            
+            br.readLine();
+            bgString = br.readLine();
+            bgMusicString = br.readLine();
+            br.readLine();
+            int numRows = Integer.parseInt(br.readLine());
+            for (int i = 0; i < numRows; i++) {//skip unwanted line
+                br.readLine();
+            }
+            
+            int qteDiffEnemy = Integer.parseInt(br.readLine());
+            
+            for (int i = 0; i < qteDiffEnemy; i++) {
+                String  nameEnemy = br.readLine();
+                int qteEnemy = Integer.parseInt(br.readLine());
+                
+                //delimiters
+                String delims = "\\s+";
+                String line = br.readLine();
+                String[] tokens = line.split(delims);
+                
+                for(int j = 0; j < qteEnemy;j+=2){
+                    int x = Integer.parseInt(tokens[j]);
+                    int y = Integer.parseInt(tokens[j+1]);
+                    
+                    switch(nameEnemy) {
+                        case "Slugger":
+                            Slugger su = new Slugger(tileMap);
+                            su.setPosition(x,y);
+                            enemies.add(su);
+                            break;
+                        case "Slogger":
+                            Slogger so = new Slogger(tileMap);
+                            so.setPosition(x,y);
+                            enemies.add(so);
+                            break;
+                        case "Arachnik":
+                            Arachnik a = new Arachnik(tileMap);
+                            a.setPosition(x,y);
+                            enemies.add(a);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+        }catch(Exception e){
+            e.printStackTrace();
         }
-        
-        Slogger so;
-        Point[] pointsSo = new Point[]{
-            new Point(400, 108),
-        };
-        for (int i = 0; i < pointsSo.length; i++) {
-            so = new Slogger(tileMap);
-            so.setPosition(pointsSo[i].x, pointsSo[i].y);
-            enemies.add(so);
-        }
-        
-        Arachnik a;
-        Point[] pointsA = new Point[]{
-            new Point(1013, 198),
-            new Point(1200, 150),
-            new Point(1381, 80),
-            new Point(1575, 130),
-            new Point(1828, 41),
-            new Point(2000, 106),
-            new Point(2045, 76),
-            new Point(2425, 163),
-            new Point(2830, 160)
-        };
-        for (int i = 0; i < pointsA.length; i++) {
-            a = new Arachnik(tileMap);
-            a.setPosition(pointsA[i].x, pointsA[i].y);
-            enemies.add(a);
-        }
-        
-        
     }
     
     public Player getPlayer(){return player;}
@@ -167,7 +185,7 @@ public class Level1State extends GameState {
         for(int i= 0; i < enemies.size(); i++){
             Enemy e = enemies.get(i);
             e.update();
-            if(e.isDead()){
+            if(e.isDead() || e.gety()>tileMap.height-14){
                 enemies.remove(i);
                 i--;
                 explosions.add(new Explosion(e.getx(), e.gety()));

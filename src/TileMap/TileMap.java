@@ -115,6 +115,48 @@ public class TileMap {
         }
     
     }
+    
+    public void loadFullMap(String s){
+        //load map file into memory
+        //in the file, first line is int nb of columns, second line is number of rows
+        //all the other line are the map
+        try{
+            
+            InputStream in = getClass().getResourceAsStream(s);
+            BufferedReader br = new BufferedReader(new InputStreamReader(in));
+            
+            String tileSet = br.readLine();
+            br.readLine();
+            br.readLine();
+            numCols = Integer.parseInt(br.readLine());
+            numRows = Integer.parseInt(br.readLine());
+            map = new int[numRows][numCols];
+            width = numCols * tileSize;
+            height = numRows * tileSize;
+            
+            xmin = GamePanel.WIDTH - width;
+            xmax = 0;
+            ymin = GamePanel.HEIGHT - height;
+            xmax = 0;
+            
+            //delimiters
+            String delims = "\\s+";
+            for(int row = 0; row < numRows; row++){
+                String line = br.readLine();
+                String[] tokens = line.split(delims);
+                for(int col = 0; col < numCols;col++){
+                    map[row][col]= Integer.parseInt(tokens[col]);
+                }
+                
+            }
+            
+            loadTile(tileSet);
+            
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    
+    }
 
     public double getx() {return  x;}
     public double gety() {return  y;}
