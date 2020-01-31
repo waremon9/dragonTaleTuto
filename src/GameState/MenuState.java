@@ -27,7 +27,7 @@ public class MenuState extends GameState {
     private Font titleFont;
 
     private Font font;
-    
+        
     public MenuState(GameStateManager gsm){
         
         this.gsm = gsm;

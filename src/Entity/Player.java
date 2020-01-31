@@ -29,8 +29,6 @@ public class Player extends MapObject{
     private boolean  flinching;
     private long flincTimer;
     private int xp;
-    private int xpNext;
-    private int lvl;
     
     //fireball
     private boolean firing;
@@ -64,7 +62,7 @@ public class Player extends MapObject{
     //audio
     private HashMap<String, AudioPlayer> sfx;
  
-    public Player(TileMap tm){
+    public Player(TileMap tm, int maxHealth, int maxFire, int xp){
         
         super(tm);
         
@@ -83,11 +81,9 @@ public class Player extends MapObject{
         
         facingRight = true;
         
-        health = maxHealth = 10;
-        fire = maxFire = 1500;
-        xp = 0;
-        xpNext = 100;
-        lvl = 1;
+        health = this.maxHealth = maxHealth;
+        fire = this.maxFire = maxFire;
+        this.xp = xp;
         
         fireCost = 200;
         fireBallDamage = 3;
@@ -134,8 +130,6 @@ public class Player extends MapObject{
     public int getFire(){return fire;}
     public int getMaxFire(){return maxFire;}
     public int getXp(){return xp;}
-    public int getXpNext(){return xpNext;}
-    public int getLvl(){return lvl;}
     
     //position for test in lvl
     public String getPosition(){return "x : "+x+" y : "+y;}
@@ -215,16 +209,6 @@ public class Player extends MapObject{
     
     public void gainXp(int gain){
         xp += gain;
-        checkLvlUp();
-    }
-    
-    private void checkLvlUp (){
-        if(xp>=xpNext){
-            lvl++;
-            xp-=xpNext;
-            xpNext*=1.5;
-            //lvlUp();
-        }
     }
     
     public boolean hit (int damage){

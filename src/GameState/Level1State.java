@@ -20,6 +20,8 @@ import Audio.AudioPlayer;
 import Entity.Damage;
 import Entity.Enemies.Arachnik;
 import Entity.Enemies.Slogger;
+import java.io.File;
+import java.nio.file.Files;
 
 /**
  *
@@ -42,6 +44,8 @@ public class Level1State extends GameState {
     
     private AudioPlayer bgMusic;
     
+    private static File savePlayer=new File(System.getenv("HOME"), "save/.Player_save.txt");
+    
     public Level1State(GameStateManager gsm){
         this.gsm = gsm;
         init();
@@ -56,7 +60,21 @@ public class Level1State extends GameState {
         
         bg = new Background("/res/Backgrounds/grassbg1.gif", 0.1);
         
-        player = new Player(tileMap);
+        
+        //load the player
+        try {
+            java.util.List<String> infoPlayer=Files.readAllLines(savePlayer.toPath());
+            for (String infos:infoPlayer){
+                String[] infoPlayer2 = infos.split(":");
+                int maxHealth = Integer.parseInt(infoPlayer2[1]);
+                int maxFire = Integer.parseInt(infoPlayer2[2]);
+                int xp = Integer.parseInt(infoPlayer2[3]);
+                player = new Player(tileMap, maxHealth, maxFire, xp);
+            }
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+        
         player.setPosition(100, 150);//starting position
         playerStartedDying = false;
         playerFinishedDying = false;

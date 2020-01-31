@@ -29,7 +29,7 @@ public class HUD {
         try{
             
             healtFire = ImageIO.read(getClass().getResourceAsStream("/res/HUD/hud.gif"));
-            XP = ImageIO.read(getClass().getResourceAsStream("/res/HUD/xp.gif"));
+            XP = ImageIO.read(getClass().getResourceAsStream("/res/HUD/xpOnly.gif"));
             font = new Font("Arial", Font.PLAIN, 14);
             
         }catch(Exception e){
@@ -44,8 +44,7 @@ public class HUD {
         g.setColor(Color.WHITE);
         g.drawString(player.getHealth() + " / " + player.getMaxHealth(), 25, 19);
         g.drawString(player.getFire()/100 + " / " + player.getMaxFire()/100, 20, 41);
-        g.drawString(player.getLvl()+"", 125, 20);
-        g.drawString(player.getXp() + " / " + player.getXpNext(), 170, 20);
+        g.drawString(player.getXp()+"", 140, 20);
     }
     
 }
