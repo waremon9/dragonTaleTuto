@@ -66,10 +66,11 @@ public class Level1State extends GameState {
             java.util.List<String> infoPlayer=Files.readAllLines(savePlayer.toPath());
             for (String infos:infoPlayer){
                 String[] infoPlayer2 = infos.split(":");
+                String pseudo = infoPlayer2[0];
                 int maxHealth = Integer.parseInt(infoPlayer2[1]);
                 int maxFire = Integer.parseInt(infoPlayer2[2]);
                 int xp = Integer.parseInt(infoPlayer2[3]);
-                player = new Player(tileMap, maxHealth, maxFire, xp);
+                player = new Player(tileMap, pseudo, maxHealth, maxFire, xp);
             }
         }catch(Exception e) {
             e.printStackTrace();
@@ -139,12 +140,15 @@ public class Level1State extends GameState {
         
     }
     
+    public Player getPlayer(){return player;}
+    
     public void update(){
     
         //update player
         player.update();
         tileMap.setPosition(GamePanel.WIDTH/2 - player.getx(), GamePanel.HEIGHT/2 - player.gety());
         if(player.isDead() && !playerStartedDying) {
+            gsm.saveProgress(player);
             playerStartedDying = true;
             explosions.add(new Explosion(player.getx(), player.gety()));
         }

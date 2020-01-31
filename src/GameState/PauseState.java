@@ -22,7 +22,7 @@ public class PauseState extends GameState{
     private int currentChoice = 0;
     private String[] options = {
             "Continue",
-            "Help",
+            "Save",
             "Menu"
     };
 
@@ -85,7 +85,7 @@ public class PauseState extends GameState{
                 gsm.unpauseLevelState();
                 break;
             case 1:
-                //help
+                gsm.saveProgress(gsm.savedState.getPlayer());
                 break;
             case 2:
                 gsm.setState(GameStateManager.MENUSTATE);

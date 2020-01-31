@@ -21,6 +21,7 @@ import javax.imageio.ImageIO;
 public class Player extends MapObject{
     
     //player stuff
+    private String pseudo;
     private int health;
     private int maxHealth;
     private int fire;
@@ -62,9 +63,11 @@ public class Player extends MapObject{
     //audio
     private HashMap<String, AudioPlayer> sfx;
  
-    public Player(TileMap tm, int maxHealth, int maxFire, int xp){
+    public Player(TileMap tm, String pseudo, int maxHealth, int maxFire, int xp){
         
         super(tm);
+        
+        this.pseudo = pseudo;
         
         width = 30;
         height = 30;
@@ -130,6 +133,7 @@ public class Player extends MapObject{
     public int getFire(){return fire;}
     public int getMaxFire(){return maxFire;}
     public int getXp(){return xp;}
+    public String getPseudo(){return pseudo;}
     
     //position for test in lvl
     public String getPosition(){return "x : "+x+" y : "+y;}
@@ -215,7 +219,10 @@ public class Player extends MapObject{
         if(flinching || dead) return false;
         health -= damage;
         if(health<0) health = 0;
-        if(health==0) dead = true;
+        if(health==0){
+            xp -= round(xp/3);
+            dead = true;
+        }
         flinching = true;
         flincTimer = System.nanoTime();
         return true;

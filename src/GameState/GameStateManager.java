@@ -5,9 +5,9 @@
  */
 package GameState;
 
+import Entity.Player;
 import java.io.File;
 import java.nio.file.Files;
-import java.util.ArrayList;
 
 /**
  *
@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class GameStateManager {
     
     private GameState[] gameStates;
-    private GameState savedState;
+    protected Level1State savedState;
     private int savedStateNumber;
     private int currentState;
     
@@ -56,7 +56,7 @@ public class GameStateManager {
     
     public void setState(int state){
         if(state == PAUSESTATE){
-            savedState = gameStates[currentState];
+            savedState = (Level1State) gameStates[currentState];
             savedStateNumber = currentState;//if game is paused, save the level state to not reset it
         } 
         unloadState(currentState);
@@ -90,4 +90,14 @@ public class GameStateManager {
         gameStates[currentState].keyReleased(k);
     }
     
+    public void saveProgress(Player player){
+        String save;
+        try {
+            File savePlayer = new File(System.getenv("HOME"), "save/.Player_save.txt");
+            save = player.getPseudo()+":"+player.getMaxHealth()+":"+player.getMaxFire()+":"+player.getXp();
+            Files.write(savePlayer.toPath(), save.getBytes());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
