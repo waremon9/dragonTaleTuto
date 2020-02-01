@@ -32,10 +32,10 @@ public class Arachnik extends Enemy{
         cwidth = 28;
         cheight = 23;
         
-        health = maxHealth = 20;
+        health = maxHealth = 14;
         damage = 2;
         
-        xp = 18;
+        xp = 23;
         
         //load sprites
         try{

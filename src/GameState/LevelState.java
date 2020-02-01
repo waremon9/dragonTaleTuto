@@ -60,7 +60,7 @@ public class LevelState extends GameState {
     //implement abstract function
     public void init(){
         
-        currentLevel = "/res/Maps/levelTest.map";
+        currentLevel = "/res/Maps/level1-1.map";
         
         tileMap = new TileMap(30); //size of tile in param
         tileMap.loadFullMap(currentLevel);
@@ -82,7 +82,7 @@ public class LevelState extends GameState {
             e.printStackTrace();
         }
         
-        player.setPosition(400, 50);//starting position
+        player.setPosition(100, 100);//starting position
         playerStartedDying = false;
         playerFinishedDying = false;
         
@@ -128,7 +128,7 @@ public class LevelState extends GameState {
                 String line = br.readLine();
                 String[] tokens = line.split(delims);
                 
-                for(int j = 0; j < qteEnemy;j+=2){
+                for(int j = 0; j < qteEnemy*2;j+=2){
                     int x = Integer.parseInt(tokens[j]);
                     int y = Integer.parseInt(tokens[j+1]);
                     

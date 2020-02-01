@@ -25,8 +25,8 @@ public class Slogger extends Enemy{
         
         super(tm);
         
-        moveSpeed = 0.1;
-        maxSpeed = 0.5;
+        moveSpeed = 0.02;
+        maxSpeed = 0.4;
         
         fallSpeed = 0.2;
         maxFallSpeed = 10.0;
@@ -36,10 +36,10 @@ public class Slogger extends Enemy{
         cwidth = 25;
         cheight = 25;
         
-        health = maxHealth = 32;
-        damage = 2;
+        health = maxHealth = 12;
+        damage = 1;
         
-        xp = 30;
+        xp = 15;
         
         //load sprites
         try{
