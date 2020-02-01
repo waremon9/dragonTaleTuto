@@ -5,7 +5,7 @@
  */
 package GameState;
 
-import Entity.Enemies.Slugger;
+import Entity.Enemies.*;
 import Entity.Enemy;
 import Entity.Explosion;
 import Entity.HUD;
@@ -17,8 +17,6 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import Audio.AudioPlayer;
 import Entity.Damage;
-import Entity.Enemies.Arachnik;
-import Entity.Enemies.Slogger;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStream;
@@ -60,7 +58,7 @@ public class LevelState extends GameState {
     //implement abstract function
     public void init(){
         
-        currentLevel = "/res/Maps/level1-1.map";
+        currentLevel = "/res/Maps/TEST.map";
         
         tileMap = new TileMap(30); //size of tile in param
         tileMap.loadFullMap(currentLevel);
@@ -142,6 +140,11 @@ public class LevelState extends GameState {
                             Slogger so = new Slogger(tileMap);
                             so.setPosition(x,y);
                             enemies.add(so);
+                            break;
+                        case "GiantSlugger":
+                            GiantSlugger gs = new GiantSlugger(tileMap);
+                            gs.setPosition(x,y);
+                            enemies.add(gs);
                             break;
                         case "Arachnik":
                             Arachnik a = new Arachnik(tileMap);

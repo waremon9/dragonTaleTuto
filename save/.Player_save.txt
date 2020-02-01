@@ -1,1 +1,1 @@
-firstPlayerTest:15:1800:82
+firstPlayerTest:15:1800:12
