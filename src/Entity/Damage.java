@@ -8,6 +8,7 @@ package Entity;
 import TileMap.TileMap;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.Random;
 import javax.imageio.ImageIO;
 
@@ -21,6 +22,7 @@ public class Damage extends MapObject{
     private boolean remove;
     private BufferedImage[] allSprites;
     private BufferedImage[] rightSprite;
+    private ArrayList<Animation> allAnimation;
     private int damage;
     
     public Damage(TileMap tm, int value, double x, double y){
@@ -48,26 +50,28 @@ public class Damage extends MapObject{
         hit = 0;
         
         //load sprites
+        allAnimation = new ArrayList<Animation>();
         try{
-            
             BufferedImage spritesheet = ImageIO.read(getClass().getResourceAsStream("/res/Sprites/damage.gif"));
-            
+
             allSprites = new BufferedImage[10];
             for (int i = 0; i < allSprites.length; i++){
                 allSprites[i] = spritesheet.getSubimage(i*width, 0, width, height);
             }
-            
-            rightSprite = new BufferedImage[1];
-            rightSprite[0] = allSprites[value];
-            
-            animation = new Animation();
-            animation.setFrames(rightSprite);
-            animation.setDelay(500);
-            
+            while(damage>=1){
+                rightSprite = new BufferedImage[1];
+                rightSprite[0] = allSprites[damage%10];
+
+                animation = new Animation();
+                animation.setFrames(rightSprite);
+                animation.setDelay(500);
+                allAnimation.add(animation);
+                
+                damage/=10;
+            }
         }catch(Exception e){
             e.printStackTrace();
         }
-        
     }
     
     public void addHit(){//when the fireball hit something
@@ -111,7 +115,11 @@ public class Damage extends MapObject{
         
         setMapPosition();
         
-        super.draw(g);
+        if(!notOnScreen()){
+            for(int i = 0; i<allAnimation.size();i++){
+                g.drawImage(allAnimation.get(i).getImage(), (int)(x+xmap-width/2-i*15), (int)(y+ymap-height/2), null);
+            }
+        }
         
     }
     
