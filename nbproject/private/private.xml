@@ -4,7 +4,9 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/verhi/OneDrive/Documents/NetBeansProjects/DragonTuto/dragonTaleTuto/src/GameState/LevelState.java</file>
-            <file>file:/C:/Users/verhi/OneDrive/Documents/NetBeansProjects/DragonTuto/dragonTaleTuto/src/Entity/Damage.java</file>
+            <file>file:/C:/Users/verhi/OneDrive/Documents/NetBeansProjects/DragonTuto/dragonTaleTuto/src/Entity/Enemies/GiantSlugger.java</file>
+            <file>file:/C:/Users/verhi/OneDrive/Documents/NetBeansProjects/DragonTuto/dragonTaleTuto/src/Entity/Enemies/Slogger.java</file>
+            <file>file:/C:/Users/verhi/OneDrive/Documents/NetBeansProjects/DragonTuto/dragonTaleTuto/src/res/Maps/TEST.map</file>
         </group>
     </open-files>
 </project-private>

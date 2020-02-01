@@ -151,6 +151,11 @@ public class LevelState extends GameState {
                             a.setPosition(x,y);
                             enemies.add(a);
                             break;
+                        case "Goomba":
+                            Goomba g = new Goomba(tileMap);
+                            g.setPosition(x,y);
+                            enemies.add(g);
+                            break;
                         default:
                             break;
                     }
