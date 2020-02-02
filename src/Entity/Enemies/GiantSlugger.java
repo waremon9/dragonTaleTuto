@@ -26,14 +26,14 @@ public class GiantSlugger extends Enemy{
         super(tm);
         
         moveSpeed = 0.02;
-        maxSpeed = 0.4;
+        maxSpeed = 0.3;
         
         fallSpeed = 0.2;
         maxFallSpeed = 10.0;
         
         width = 60;
         height = 60;
-        cwidth = 32;
+        cwidth = 35;
         cheight = 27;
         
         health = maxHealth = 50;

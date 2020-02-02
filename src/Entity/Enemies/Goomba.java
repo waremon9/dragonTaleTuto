@@ -10,6 +10,7 @@ import Entity.Enemy;
 import TileMap.TileMap;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.util.Random;
 import javax.imageio.ImageIO;
 
 /**
@@ -35,10 +36,10 @@ public class Goomba extends Enemy{
         cwidth = 17;
         cheight = 16;
         
-        health = maxHealth = 10;
+        health = maxHealth = 5;
         damage = 2;
         
-        xp = 15;
+        xp = 12;
         
         //load sprites
         try{
@@ -58,12 +59,15 @@ public class Goomba extends Enemy{
         animation.setFrames(sprites);
         animation.setDelay(20);
         
-        right = true;
-        facingRight = true;
+        Random rd = new Random();
+        facingRight = right = rd.nextBoolean();
+        left = !right;
         
     }
     
     private void getNextPosition(){
+        
+        isAboutToFall();
         
         //movement
         if(left){
