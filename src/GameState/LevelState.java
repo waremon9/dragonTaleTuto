@@ -58,7 +58,7 @@ public class LevelState extends GameState {
     //implement abstract function
     public void init(){
         
-        currentLevel = "/res/Maps/TEST.map";
+        currentLevel = "/res/Maps/level1-2.map";
         
         tileMap = new TileMap(30); //size of tile in param
         tileMap.loadFullMap(currentLevel);
@@ -80,7 +80,7 @@ public class LevelState extends GameState {
             e.printStackTrace();
         }
         
-        player.setPosition(100, 100);//starting position
+        player.setPosition(100, 150);//starting position
         playerStartedDying = false;
         playerFinishedDying = false;
         
