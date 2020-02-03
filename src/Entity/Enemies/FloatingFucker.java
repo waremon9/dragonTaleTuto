@@ -31,6 +31,8 @@ public class FloatingFucker extends Enemy{
         fallSpeed = 0.2;
         maxFallSpeed = 0;
         
+        canBeBacking = false;
+        
         width = 28;
         height = 55;
         cwidth = 22;

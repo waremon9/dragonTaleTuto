@@ -32,6 +32,8 @@ public class Arachnik extends Enemy{
         cwidth = 28;
         cheight = 23;
         
+        canBeBacking = false;
+        
         health = maxHealth = 14;
         damage = 2;
         

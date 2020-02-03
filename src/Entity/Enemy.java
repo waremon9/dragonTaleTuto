@@ -22,18 +22,28 @@ public class Enemy extends MapObject{
     protected boolean flinching;
     protected long flinchTimer;
     
+    protected boolean canBeBacking;
+    protected boolean backing;
+    protected boolean backingRight;
+    protected boolean backingFirst;
+    
     public Enemy(TileMap tm){
         super(tm);
     }
     
     public boolean isDead(){return dead;}
     public int getDamage(){return damage;}
+    public int getXp(){return xp;}
     
     
     //if cannot hit, return null array, else return xp if dead and true it hit
-    public int hit(int damage){
+    public int hit(int damage, boolean faceRight){
         if(dead || flinching){
             return -1;
+        }
+        if(canBeBacking){
+            backing = backingFirst = true;
+            backingRight = faceRight;
         }
         health -= damage;
         if(health <= 0) {

@@ -199,6 +199,7 @@ public class LevelState extends GameState {
             Enemy e = enemies.get(i);
             e.update();
             if(e.isDead() || e.gety()>tileMap.height-14){
+                if(!e.isDead()) player.gainXp(e.getXp()/2);
                 enemies.remove(i);
                 i--;
                 explosions.add(new Explosion(e.getx(), e.gety()));

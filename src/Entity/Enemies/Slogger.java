@@ -31,6 +31,8 @@ public class Slogger extends Enemy{
         fallSpeed = 0.2;
         maxFallSpeed = 10.0;
         
+        canBeBacking = true;
+        
         width = 30;
         height = 30;
         cwidth = 25;
@@ -70,16 +72,31 @@ public class Slogger extends Enemy{
         isAboutToFall();
         
         //movement
-        if(left){
-            dx -= moveSpeed;
-            if(dx < -maxSpeed){
-                dx = -maxSpeed;
+        if(!backing){
+            if(left){
+                dx -= moveSpeed;
+                if(dx < -maxSpeed){
+                    dx = -maxSpeed;
+                }
+            }else if(right){
+                dx += moveSpeed;
+                if(dx > maxSpeed){
+                    dx = maxSpeed;
+                }
             }
-        }else if(right){
-            dx += moveSpeed;
-            if(dx > maxSpeed){
-                dx = maxSpeed;
+        }
+
+        //knockback
+        if(backing){
+            if(backingFirst) {
+                dy -= 2.5;
+                backingFirst = false;
             }
+            if(backingRight) dx=0.5;
+            else dx=-0.5;
+            System.out.println(dx);
+            System.out.println(dy);
+            if(dy==0 && !falling) backing = false;
         }
         
         //falling

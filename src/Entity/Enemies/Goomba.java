@@ -36,6 +36,8 @@ public class Goomba extends Enemy{
         cwidth = 17;
         cheight = 16;
         
+        canBeBacking = true;
+        
         health = maxHealth = 5;
         damage = 2;
         
@@ -70,16 +72,31 @@ public class Goomba extends Enemy{
         isAboutToFall();
         
         //movement
-        if(left){
-            dx -= moveSpeed;
-            if(dx < -maxSpeed){
-                dx = -maxSpeed;
+        if(!backing){
+            if(left){
+                dx -= moveSpeed;
+                if(dx < -maxSpeed){
+                    dx = -maxSpeed;
+                }
+            }else if(right){
+                dx += moveSpeed;
+                if(dx > maxSpeed){
+                    dx = maxSpeed;
+                }
             }
-        }else if(right){
-            dx += moveSpeed;
-            if(dx > maxSpeed){
-                dx = maxSpeed;
+        }
+
+        //knockback
+        if(backing){
+            if(backingFirst) {
+                dy -= 3.5;
+                backingFirst = false;
             }
+            if(backingRight) dx=0.8;
+            else dx=-0.8;
+            System.out.println(dx);
+            System.out.println(dy);
+            if(dy==0 && !falling) backing = false;
         }
         
         //falling

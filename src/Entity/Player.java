@@ -165,7 +165,7 @@ public class Player extends MapObject{
                             e.gety()>y-height/2 &&
                             e.gety()<y+height/2
                     ) {
-                        enemyHit = e.hit(scratchDamage);
+                        enemyHit = e.hit(scratchDamage, true);
                         if(enemyHit != -1){
                             gainXp(enemyHit);
                             damages.add(new Damage(tm, scratchDamage, e.getx(), e.gety()));
@@ -178,7 +178,7 @@ public class Player extends MapObject{
                             e.gety()>y-height/2 &&
                             e.gety()<y+height/2
                     ) {
-                        enemyHit = e.hit(scratchDamage);
+                        enemyHit = e.hit(scratchDamage, false);
                         if(enemyHit != -1){
                             gainXp(enemyHit);
                             damages.add(new Damage(tm, scratchDamage, e.getx(), e.gety()));
@@ -190,7 +190,7 @@ public class Player extends MapObject{
             //fireballs
             for (int j = 0; j < fireBalls.size(); j++) {
                 if(fireBalls.get(j).intersects(e)){
-                    enemyHit = e.hit(fireBallDamage);
+                    enemyHit = e.hit(fireBallDamage, fireBalls.get(j).facingRight);
                     if(enemyHit!=-1){
                         gainXp(enemyHit);
                         damages.add(new Damage(tm, fireBallDamage, e.getx(), e.gety()));

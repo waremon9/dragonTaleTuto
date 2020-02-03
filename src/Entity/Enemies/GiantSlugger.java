@@ -31,6 +31,8 @@ public class GiantSlugger extends Enemy{
         fallSpeed = 0.2;
         maxFallSpeed = 10.0;
         
+        canBeBacking = false;
+        
         width = 60;
         height = 60;
         cwidth = 35;
