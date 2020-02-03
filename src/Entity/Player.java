@@ -13,9 +13,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import javax.imageio.ImageIO;
 import static java.lang.Math.round;
-import static java.lang.Math.round;
-import static java.lang.Math.round;
-import static java.lang.Math.round;
 
 /**
  *

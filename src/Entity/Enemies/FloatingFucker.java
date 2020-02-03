@@ -10,6 +10,7 @@ import Entity.Enemy;
 import TileMap.TileMap;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.util.Random;
 import javax.imageio.ImageIO;
 
 /**
@@ -24,21 +25,21 @@ public class FloatingFucker extends Enemy{
         
         super(tm);
         
-        moveSpeed = 0.3;
-        maxSpeed = 0.00000003;
+        moveSpeed = 0.005;
+        maxSpeed = 0.5;
         
         fallSpeed = 0.2;
         maxFallSpeed = 0;
         
         width = 28;
-        height = 42;
+        height = 55;
         cwidth = 22;
-        cheight = 23;
+        cheight = 34;
         
-        health = maxHealth = 800;
-        damage = 0;
+        health = maxHealth = 10;
+        damage = 2;
         
-        xp = 10;
+        xp = 20;
         
         //load sprites
         try{
@@ -58,8 +59,9 @@ public class FloatingFucker extends Enemy{
         animation.setFrames(sprites);
         animation.setDelay(60);
         
-        right = true;
-        facingRight = true;
+        Random rd = new Random();
+        facingRight = right = rd.nextBoolean();
+        left = !right;
         
     }
     
