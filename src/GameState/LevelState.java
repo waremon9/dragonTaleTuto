@@ -58,7 +58,7 @@ public class LevelState extends GameState {
     //implement abstract function
     public void init(){
         
-        currentLevel = "/res/Maps/level1-2.map";
+        currentLevel = "/res/Maps/TEST.map";
         
         tileMap = new TileMap(30); //size of tile in param
         tileMap.loadFullMap(currentLevel);
@@ -155,6 +155,11 @@ public class LevelState extends GameState {
                             Goomba g = new Goomba(tileMap);
                             g.setPosition(x,y);
                             enemies.add(g);
+                            break;
+                        case "FloatingFucker":
+                            FloatingFucker f = new FloatingFucker(tileMap);
+                            f.setPosition(x,y);
+                            enemies.add(f);
                             break;
                         default:
                             break;
