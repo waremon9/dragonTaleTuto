@@ -69,40 +69,18 @@ public class Slogger extends Enemy{
     
     private void getNextPosition(){
         
+        //do not fall of ledge
         isAboutToFall();
         
         //movement
-        if(!backing){
-            if(left){
-                dx -= moveSpeed;
-                if(dx < -maxSpeed){
-                    dx = -maxSpeed;
-                }
-            }else if(right){
-                dx += moveSpeed;
-                if(dx > maxSpeed){
-                    dx = maxSpeed;
-                }
-            }
-        }
-
+        positionMoveLeftRight();
+        
         //knockback
-        if(backing){
-            if(backingFirst) {
-                dy -= 2.5;
-                backingFirst = false;
-            }
-            if(backingRight) dx=0.5;
-            else dx=-0.5;
-            System.out.println(dx);
-            System.out.println(dy);
-            if(dy==0 && !falling) backing = false;
-        }
+        positionKnockback(2.5);
         
         //falling
-        if(falling){
-            dy += fallSpeed;
-        }
+        positionFalling();
+        
     }
     
     public void update(){

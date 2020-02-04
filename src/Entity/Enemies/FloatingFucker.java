@@ -70,17 +70,8 @@ public class FloatingFucker extends Enemy{
     private void getNextPosition(){
         
         //movement
-        if(left){
-            dx -= moveSpeed;
-            if(dx < -maxSpeed){
-                dx = -maxSpeed;
-            }
-        }else if(right){
-            dx += moveSpeed;
-            if(dx > maxSpeed){
-                dx = maxSpeed;
-            }
-        }        
+        positionMoveLeftRight();
+        
     }
     
     public void update(){

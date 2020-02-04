@@ -68,35 +68,13 @@ public class Slugger extends Enemy{
     private void getNextPosition(){
         
         //movement
-        if(!backing){
-            if(left){
-                dx -= moveSpeed;
-                if(dx < -maxSpeed){
-                    dx = -maxSpeed;
-                }
-            }else if(right){
-                dx += moveSpeed;
-                if(dx > maxSpeed){
-                    dx = maxSpeed;
-                }
-            }
-        }
+        positionMoveLeftRight();
 
         //knockback
-        if(backing){
-            if(backingFirst) {
-                dy -= 2.5;
-                backingFirst = false;
-            }
-            if(backingRight) dx=0.5;
-            else dx=-0.5;
-            if(dy==0 && !falling) backing = false;
-        }
+        positionKnockback(2.5);
         
         //falling
-        if(falling){
-            dy += fallSpeed;
-        }
+        positionFalling();
         
     }
     
@@ -136,12 +114,12 @@ public class Slugger extends Enemy{
         setMapPosition();
         
         //flinching
-        if(flinching){
+        /*if(flinching){
             long elapsed = (System.nanoTime()-flinchTimer)/1000000;
             if(elapsed / 100%2 == 0){ //blinking every 100 milliseconde
                 return;
             }
-        }
+        }*/
         
         super.draw(g);
         

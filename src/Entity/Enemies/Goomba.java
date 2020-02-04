@@ -72,37 +72,13 @@ public class Goomba extends Enemy{
         isAboutToFall();
         
         //movement
-        if(!backing){
-            if(left){
-                dx -= moveSpeed;
-                if(dx < -maxSpeed){
-                    dx = -maxSpeed;
-                }
-            }else if(right){
-                dx += moveSpeed;
-                if(dx > maxSpeed){
-                    dx = maxSpeed;
-                }
-            }
-        }
+        positionMoveLeftRight();
 
         //knockback
-        if(backing){
-            if(backingFirst) {
-                dy -= 3.5;
-                backingFirst = false;
-            }
-            if(backingRight) dx=0.8;
-            else dx=-0.8;
-            System.out.println(dx);
-            System.out.println(dy);
-            if(dy==0 && !falling) backing = false;
-        }
+        positionKnockback(3.5);
         
         //falling
-        if(falling){
-            dy += fallSpeed;
-        }
+        positionFalling();
         
     }
     

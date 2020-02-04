@@ -57,4 +57,43 @@ public class Enemy extends MapObject{
     
     public void update(){}
     
+    public void positionFalling(){
+        //falling
+        if(falling){
+            dy += fallSpeed;
+        }
+    }
+    
+    public void positionKnockback(double power){
+        //knockback
+        if(backing){
+            if(backingFirst) {
+                dy -= power;
+                backingFirst = false;
+            }
+            if(backingRight) dx=power/4;
+            else dx=-(power/4);
+            System.out.println(dx);
+            System.out.println(dy);
+            if(dy==0 && !falling) backing = false;
+        }
+    }
+    
+    public void positionMoveLeftRight(){
+        //movement
+        if(!backing){
+            if(left){
+                dx -= moveSpeed;
+                if(dx < -maxSpeed){
+                    dx = -maxSpeed;
+                }
+            }else if(right){
+                dx += moveSpeed;
+                if(dx > maxSpeed){
+                    dx = maxSpeed;
+                }
+            }
+        }
+    }
+    
 }
