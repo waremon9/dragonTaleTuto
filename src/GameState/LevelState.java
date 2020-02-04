@@ -58,8 +58,8 @@ public class LevelState extends GameState {
     //implement abstract function
     public void init(){
         
-        currentLevel = "/res/Maps/TEST.map";
-        
+        currentLevel = gsm.levelChoice;
+                
         tileMap = new TileMap(30); //size of tile in param
         tileMap.loadFullMap(currentLevel);
         tileMap.setPosition(0, 0);

@@ -17,11 +17,21 @@ public class MenuState extends GameState {
     private Background bg;
     
     private int currentChoice = 0;
-    private String[] options = {
+    private String[] options;
+    private String[] optionsMenu = {
             "Start",
             "Help",
             "Quit"
     };
+    
+    private String[] optionsLevel = {
+            "TestMap",
+            "Level 1",
+            "Level 2",
+            "return"
+    };
+    
+    private boolean menuSelect = true;
 
     private Color titleColor;
     private Font titleFont;
@@ -32,6 +42,7 @@ public class MenuState extends GameState {
         
         this.gsm = gsm;
         
+        options = optionsMenu;
         try {
 
             bg = new Background("/res/Backgrounds/menubg.gif", 1);
@@ -81,13 +92,34 @@ public class MenuState extends GameState {
     private void select(){
         switch (currentChoice) {
             case 0:
-                gsm.setState(GameStateManager.LEVELSTATE);
+                if(menuSelect){
+                    options = optionsLevel;
+                    menuSelect = false;
+                }else{
+                    gsm.setLevelChoice("TEST.map");
+                    gsm.setState(GameStateManager.LEVELSTATE);
+                }
                 break;
             case 1:
-                //help
+                if(!menuSelect){
+                    gsm.setLevelChoice("level1-1.map");
+                    gsm.setState(GameStateManager.LEVELSTATE);
+                }
                 break;
             case 2:
-                System.exit(0);
+                if(menuSelect) System.exit(0);
+                else{
+                    gsm.setLevelChoice("level1-2.map");
+                    gsm.setState(GameStateManager.LEVELSTATE);
+                }
+                break;
+            case 3:
+                if(!menuSelect){
+                    options = optionsMenu;
+                    menuSelect = true;
+                    currentChoice = 0;
+                }
+                break;
             default:
                 break;
         }

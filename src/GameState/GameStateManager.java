@@ -19,6 +19,7 @@ public class GameStateManager {
     protected LevelState savedState;
     private int savedStateNumber;
     private int currentState;
+    protected String levelChoice;
     
     public static final int NUMGAMESTATES = 4;
     public static final int MENUSTATE = 0;
@@ -52,6 +53,10 @@ public class GameStateManager {
     
     private void unloadState(int state){
         gameStates[state] = null;
+    }
+    
+    public void setLevelChoice(String level){
+        levelChoice = "/res/Maps/"+level;
     }
     
     public void setState(int state){
