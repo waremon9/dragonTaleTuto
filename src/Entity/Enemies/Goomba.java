@@ -86,8 +86,7 @@ public class Goomba extends Enemy{
         
         //update position
         getNextPosition();
-        checkTileMapCollision();
-        setPosition(xtemp, ytemp);
+        super.update();
         
         //check flinching
         if(flinching){
@@ -97,16 +96,8 @@ public class Goomba extends Enemy{
             }
         }
         
-        //if hits a wall, go other direction
-        if(right && dx == 0){//dx set to 0 when wallhit in MapObject
-            right = false;
-            left = true;
-            facingRight = false;
-        }else if(left && dx == 0){//dx set to 0 when wallhit in MapObject
-            left = false;
-            right = true;
-            facingRight = true;
-        }
+        //wall colision        
+        collisionLeftRight();
         
         //update animation
         animation.update();

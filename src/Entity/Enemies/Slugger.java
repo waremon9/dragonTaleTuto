@@ -37,7 +37,7 @@ public class Slugger extends Enemy{
         cwidth = 25;
         cheight = 25;
         
-        health = maxHealth = 800;
+        health = maxHealth = 10;
         damage = 1;
         
         xp = 10;
@@ -82,8 +82,7 @@ public class Slugger extends Enemy{
         
         //update position
         getNextPosition();
-        checkTileMapCollision();
-        setPosition(xtemp, ytemp);
+        super.update();
         
         //check flinching
         if(flinching){
@@ -93,16 +92,8 @@ public class Slugger extends Enemy{
             }
         }
         
-        //if hits a wall, go other direction
-        if(right && dx == 0){//dx set to 0 when wallhit in MapObject
-            right = false;
-            left = true;
-            facingRight = false;
-        }else if(left && dx == 0){//dx set to 0 when wallhit in MapObject
-            left = false;
-            right = true;
-            facingRight = true;
-        }
+        //wall colision        
+        collisionLeftRight();
         
         //update animation
         animation.update();
@@ -114,12 +105,12 @@ public class Slugger extends Enemy{
         setMapPosition();
         
         //flinching
-        /*if(flinching){
+        if(flinching){
             long elapsed = (System.nanoTime()-flinchTimer)/1000000;
             if(elapsed / 100%2 == 0){ //blinking every 100 milliseconde
                 return;
             }
-        }*/
+        }
         
         super.draw(g);
         

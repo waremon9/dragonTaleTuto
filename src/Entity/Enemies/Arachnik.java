@@ -65,25 +65,14 @@ public class Arachnik extends Enemy{
     private void getNextPosition(){
         
         //movement
-        if(up){
-            dy -= moveSpeed;
-            if(dy < -maxSpeed){
-                dy   = -maxSpeed;
-            }
-        }else if(down){
-            dy += moveSpeed;
-            if(dy > maxSpeed){
-                dy = maxSpeed;
-            }
-        }
+        positionUpDown();
     }
     
     public void update(){
         
         //update position
         getNextPosition();
-        checkTileMapCollision();
-        setPosition(xtemp, ytemp);
+        super.update();
         
         //check flinching
         if(flinching){
@@ -93,16 +82,8 @@ public class Arachnik extends Enemy{
             }
         }
         
-        //if hits a wall, go other direction
-        if(down && (dy == 0 || y>=tileMap.height-15)){//dy set to 0 when wallhit in MapObject
-            dy = 0;
-            down = false;
-            up = true;
-        }else if(up && (dy == 0 || y<=13)){//dy set to 0 when wallhit in MapObject
-            dy = 0;
-            up = false;
-            down = true;
-        }
+        //wall colision
+        collisionUpDown(15);
         
         //update animation
         animation.update();

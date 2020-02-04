@@ -25,7 +25,7 @@ public class FloatingFucker extends Enemy{
         
         super(tm);
         
-        moveSpeed = 0.005;
+        moveSpeed = 0.5;
         maxSpeed = 0.5;
         
         fallSpeed = 0.2;
@@ -64,6 +64,8 @@ public class FloatingFucker extends Enemy{
         Random rd = new Random();
         facingRight = right = rd.nextBoolean();
         left = !right;
+        down = rd.nextBoolean();
+        up = !down;
         
     }
     
@@ -71,6 +73,7 @@ public class FloatingFucker extends Enemy{
         
         //movement
         positionMoveLeftRight();
+        positionUpDown();
         
     }
     
@@ -78,8 +81,7 @@ public class FloatingFucker extends Enemy{
         
         //update position
         getNextPosition();
-        checkTileMapCollision();
-        setPosition(xtemp, ytemp);
+        super.update();
         
         //check flinching
         if(flinching){
@@ -89,16 +91,9 @@ public class FloatingFucker extends Enemy{
             }
         }
         
-        //if hits a wall, go other direction
-        if(right && dx == 0){//dx set to 0 when wallhit in MapObject
-            right = false;
-            left = true;
-            facingRight = false;
-        }else if(left && dx == 0){//dx set to 0 when wallhit in MapObject
-            left = false;
-            right = true;
-            facingRight = true;
-        }
+        //wall colision        
+        collisionLeftRight();
+        collisionUpDown(30);
         
         //update animation
         animation.update();

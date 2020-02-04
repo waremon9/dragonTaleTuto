@@ -55,7 +55,14 @@ public class Enemy extends MapObject{
         return 0;
     }
     
-    public void update(){}
+    public void update(){
+        
+        //update position
+        checkTileMapCollision();
+        setPosition(xtemp, ytemp);
+        
+        
+    }
     
     public void positionFalling(){
         //falling
@@ -73,8 +80,6 @@ public class Enemy extends MapObject{
             }
             if(backingRight) dx=power/4;
             else dx=-(power/4);
-            System.out.println(dx);
-            System.out.println(dy);
             if(dy==0 && !falling) backing = false;
         }
     }
@@ -93,6 +98,46 @@ public class Enemy extends MapObject{
                     dx = maxSpeed;
                 }
             }
+        }
+    }
+    
+    public void positionUpDown(){
+        if(up){
+            dy -= moveSpeed;
+            if(dy < -maxSpeed){
+                dy   = -maxSpeed;
+            }
+        }else if(down){
+            dy += moveSpeed;
+            if(dy > maxSpeed){
+                dy = maxSpeed;
+            }
+        }
+    }
+    
+    public void collisionLeftRight(){
+        //if hits a wall, go other direction
+        if(right && dx == 0){//dx set to 0 when wallhit in MapObject
+            right = false;
+            left = true;
+            facingRight = false;
+        }else if(left && dx == 0){//dx set to 0 when wallhit in MapObject
+            left = false;
+            right = true;
+            facingRight = true;
+        }
+    }
+    
+    public void collisionUpDown(int tropBasHaut){
+        //if hits a wall, go other direction
+        if(down && (dy == 0 || y>=tileMap.height-tropBasHaut)){//dy set to 0 when wallhit in MapObject
+            dy = 0;
+            down = false;
+            up = true;
+        }else if(up && (dy == 0 || y<=tropBasHaut)){//dy set to 0 when wallhit in MapObject
+            dy = 0;
+            up = false;
+            down = true;
         }
     }
     

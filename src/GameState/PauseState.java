@@ -88,6 +88,7 @@ public class PauseState extends GameState{
                 gsm.saveProgress(gsm.savedState.getPlayer());
                 break;
             case 2:
+                gsm.saveProgress(gsm.savedState.getPlayer());
                 gsm.setState(GameStateManager.MENUSTATE);
             default:
                 break;
