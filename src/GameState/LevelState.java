@@ -161,6 +161,11 @@ public class LevelState extends GameState {
                             f.setPosition(x,y);
                             enemies.add(f);
                             break;
+                        case "Munchie":
+                            Munchie m = new Munchie(tileMap);
+                            m.setPosition(x,y);
+                            enemies.add(m);
+                            break;
                         default:
                             break;
                     }
