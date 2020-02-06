@@ -19,6 +19,8 @@ import javax.imageio.ImageIO;
  */
 public class Munchie extends Enemy{
     
+    private boolean idle;
+    
     //fireball
     private boolean firing;
     private int fireCost;
@@ -41,9 +43,9 @@ public class Munchie extends Enemy{
     
     //animation actions
     private static final int IDLE = 0;
-    private static final int FALLING = 0;
-    private static final int POISONBALL = 2;
-    private static final int MUNCHING = 3;
+    private static final int JUMPING = 1;
+    private static final int POISONBALL = 3;
+    private static final int MUNCHING = 2;
  
     public Munchie(TileMap tm){
         
@@ -59,19 +61,19 @@ public class Munchie extends Enemy{
         jumpStart = -2.8;
         stopJumpSpeed = 0.3;
         
+        canBeBacking = false;
+        
         facingRight = true;
         
         health = this.maxHealth = 20;
         this.xp = 35;
-        
-        fireCost = 200;
-        fireBallDamage = 3;
+
         //fireBalls = new ArrayList<FireBall>();
         
         munchDamage = 3;
         munchRange = 20;
         
-        //load sprites (all the sprites of the 7 differrent animation
+        //load sprites (all the sprites of the 4 differrent animation
         try{
             
             BufferedImage spriteSheet = ImageIO.read(getClass().getResourceAsStream("/res/Sprites/Enemies/munchie.gif"));
@@ -104,13 +106,28 @@ public class Munchie extends Enemy{
     public String getPosition(){return "x : "+x+" y : "+y;}
     
     public void setFiring(){
+        idle = false;
+        munching = false;
+        jumping = false;
         firing = true;
     }
-    public void setScratching(){
+    public void setMunching(){
+        idle = false;
+        jumping = false;
+        firing = false;
         munching = true;
     }
-    public void setJumping(boolean b){
-        jumping = b;
+    public void setJumping(){
+        idle = false;
+        munching = false;
+        firing = false;
+        jumping = true;
+    }
+    public void setIdle(){
+        munching = false;
+        jumping = false;
+        firing = false;
+        idle = true;
     }
     
     private void getNextPosition(){
@@ -118,10 +135,11 @@ public class Munchie extends Enemy{
         //jumping
         if(jumping && !falling){
             dy = jumpStart;
-            safeSpotx = x;
-            safeSpoty = y;
+            if(facingRight) dx = -1;
+            else dx = 1;
             falling = true;
         }
+        else if (!falling) dx = 0;
         
         //falling
         positionFalling();
@@ -129,10 +147,23 @@ public class Munchie extends Enemy{
         
     }
     
+    public void chooseAction(int xPlayer, int yPlayer){
+        //idle when too far, fire when good distance, flee when too close
+        if(xPlayer>x) facingRight = false;
+        else facingRight = true;
+        if(xPlayer>x+200 || xPlayer<x-200) setIdle();
+        else if(xPlayer > x+70 || xPlayer < x-70) setFiring();
+        else{
+            setJumping();
+            facingRight = !facingRight;
+        }
+    }
+    
     public void update(){
         
         //update position
-        getNextPosition();super.update();
+        getNextPosition();
+        super.update();
             
         
         //check flinching
@@ -148,21 +179,22 @@ public class Munchie extends Enemy{
             if(currentAction != MUNCHING){
                 currentAction = MUNCHING;
                 animation.setFrames(sprites.get(MUNCHING));
-                animation.setDelay(50);
+                animation.setDelay(150);
             }
         }else if(firing){
             if(currentAction != POISONBALL){
                 currentAction = POISONBALL;
                 animation.setFrames(sprites.get(POISONBALL));
-                animation.setDelay(100);
+                animation.setDelay(270);
             }
-        }else if(dy > 0){
-            if(currentAction != FALLING){
-                    currentAction = FALLING;
-                    animation.setFrames(sprites.get(FALLING));
-                    animation.setDelay(100);
+        }else if(jumping){
+            //falling animation is idle
+            if(currentAction != JUMPING){
+                    currentAction = JUMPING;
+                    animation.setFrames(sprites.get(JUMPING));
+                    animation.setDelay(60);
             }
-        }else {
+        }else if(idle){
             if(currentAction != IDLE){
                 currentAction = IDLE;
                 animation.setFrames(sprites.get(IDLE));
@@ -178,13 +210,15 @@ public class Munchie extends Enemy{
             if(right)facingRight = true;
             if(left) facingRight = false;
         }
+        
+        
     }
     
     public void draw(Graphics2D g){
         
-        setMapPosition();//first to bell call in any map object
+        setMapPosition();//first to  call in any map object
         
-        //dflinching
+        //flinching
         if(flinching){
             long elapsed = (System.nanoTime()-flinchTimer)/1000000;
             if(elapsed / 100%2 == 0){ //blinking every 100 milliseconde

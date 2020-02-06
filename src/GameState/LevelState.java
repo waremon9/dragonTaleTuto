@@ -203,6 +203,8 @@ public class LevelState extends GameState {
         for(int i= 0; i < enemies.size(); i++){
             Enemy e = enemies.get(i);
             e.update();
+            //munchie take action according to player position
+            if(e instanceof Munchie) ((Munchie) e).chooseAction(player.getx(), player.gety());
             if(e.isDead() || e.gety()>tileMap.height-14){
                 if(!e.isDead()) player.gainXp(e.getXp()/2);
                 enemies.remove(i);
