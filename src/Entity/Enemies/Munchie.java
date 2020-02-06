@@ -7,6 +7,7 @@ package Entity.Enemies;
 
 import Entity.Animation;
 import Entity.Enemy;
+import Entity.PoisonBall;
 import TileMap.TileMap;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -25,7 +26,7 @@ public class Munchie extends Enemy{
     private boolean firing;
     private int fireCost;
     private int fireBallDamage;
-    //private ArrayList<FireBall> fireBalls;
+    private ArrayList<PoisonBall> poisonBalls;
     
     //scratch attack
     private boolean munching;
@@ -68,7 +69,7 @@ public class Munchie extends Enemy{
         health = this.maxHealth = 20;
         this.xp = 35;
 
-        //fireBalls = new ArrayList<FireBall>();
+        poisonBalls = new ArrayList<PoisonBall>();
         
         munchDamage = 3;
         munchRange = 20;
@@ -135,8 +136,8 @@ public class Munchie extends Enemy{
         //jumping
         if(jumping && !falling){
             dy = jumpStart;
-            if(facingRight) dx = -1;
-            else dx = 1;
+            if(facingRight) dx = -1.5;
+            else dx = 1.5;
             falling = true;
         }
         else if (!falling) dx = 0;
@@ -171,6 +172,22 @@ public class Munchie extends Enemy{
             long elapsed = (System.nanoTime() - flinchTimer)/1000000;
             if (elapsed>1000){
                 flinching = false;
+            }
+        }
+        
+        //poison attack
+        if(firing && !falling){
+            PoisonBall pb = new PoisonBall(tileMap, !facingRight);
+            pb.setPosition(x, y);//poisonBall appear at the same position as the munchie
+            poisonBalls.add(pb);
+        }
+        
+        //update poisonBall
+        for(int i = 0; i<poisonBalls.size(); i++){
+            poisonBalls.get(i).update();
+            if(poisonBalls.get(i).shouldRemove()){
+                poisonBalls.remove(i);
+                i--;
             }
         }
         
@@ -217,6 +234,11 @@ public class Munchie extends Enemy{
     public void draw(Graphics2D g){
         
         setMapPosition();//first to  call in any map object
+        
+        //draw poisonBall
+        for(int i = 0; i<poisonBalls.size(); i++){
+            poisonBalls.get(i).draw(g);
+        }
         
         //flinching
         if(flinching){
