@@ -52,9 +52,9 @@ public class MenuState extends GameState {
             titleFont = new Font(
                             "Century Gothic",
                             Font.PLAIN,
-                            28);
+                            36);
 
-            font = new Font("Arial", Font.PLAIN, 12);
+            font = new Font("Arial", Font.PLAIN, 14);
 
         }
         catch(Exception e) {
@@ -75,19 +75,32 @@ public class MenuState extends GameState {
         // draw title
         g.setColor(titleColor);
         g.setFont(titleFont);
-        g.drawString("Dragon Tale", 80, 70);
+        drawCenteredString(g, "Dragon Tale", new Rectangle(0, 10, 480, 60), titleFont);
         
         //draw menu options
-        g.setFont(font);
         for(int i = 0; i<options.length;i++){
             if(i==currentChoice){
                 g.setColor(Color.BLACK);
             }else{
                 g.setColor(Color.RED);
             }
-            g.drawString(options[i], 145,140+i*15);
+            //g.drawString(options[i], 235,140+i*20);
+            drawCenteredString(g, options[i], new Rectangle(0, 100+i*21, 480, 20), font);
         }
     }
+    
+    public void drawCenteredString(Graphics g, String text, Rectangle rect, Font font) {
+    // Get the FontMetrics
+    FontMetrics metrics = g.getFontMetrics(font);
+    // Determine the X coordinate for the text
+    int x = rect.x + (rect.width - metrics.stringWidth(text)) / 2;
+    // Determine the Y coordinate for the text (note we add the ascent, as in java 2d 0 is top of the screen)
+    int y = rect.y + ((rect.height - metrics.getHeight()) / 2) + metrics.getAscent();
+    // Set the font
+    g.setFont(font);
+    // Draw the String
+    g.drawString(text, x, y);
+}
     
     private void select(){
         switch (currentChoice) {

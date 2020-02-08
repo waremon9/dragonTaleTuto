@@ -167,8 +167,8 @@ public class Munchie extends Enemy{
         ArrayList<Damage> damages = new ArrayList<Damage>();
         for (int j = 0; j < poisonBalls.size(); j++) {
             if(poisonBalls.get(j).intersects(player)){
-                player.health-=poisonBallDamage;
-                damages.add(new Damage(tm, poisonBallDamage, player.getx(), player.gety()));
+                if(!player.isFlinching()) damages.add(new Damage(tm, poisonBallDamage, player.getx(), player.gety()));
+                player.hit(poisonBallDamage);
                 poisonBalls.get(j).setHit();
                 break;
             }
@@ -186,7 +186,7 @@ public class Munchie extends Enemy{
         //check flinching
         if(flinching){
             long elapsed = (System.nanoTime() - flinchTimer)/1000000;
-            if (elapsed>1000){
+            if (elapsed>700){
                 flinching = false;
             }
         }

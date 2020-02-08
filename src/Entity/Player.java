@@ -134,6 +134,7 @@ public class Player extends MapObject{
     public int getMaxFire(){return maxFire;}
     public int getXp(){return xp;}
     public String getPseudo(){return pseudo;}
+    public boolean isFlinching(){return flinching;}
     
     //position for test in lvl
     public String getPosition(){return "x : "+x+" y : "+y;}
