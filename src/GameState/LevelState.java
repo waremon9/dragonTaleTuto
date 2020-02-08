@@ -17,6 +17,7 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import Audio.AudioPlayer;
 import Entity.Damage;
+import Entity.PoisonBall;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStream;
@@ -40,6 +41,7 @@ public class LevelState extends GameState {
     private ArrayList<Enemy> enemies;
     private ArrayList<Explosion> explosions;
     private ArrayList<Damage> damages;
+    public ArrayList<PoisonBall> poisonBalls;
     
     private HUD hud;
     
@@ -194,8 +196,7 @@ public class LevelState extends GameState {
         bg.setPosition(tileMap.getx(), tileMap.gety());
         
         //attack enemies and add the new Damages when hit
-        ArrayList<Damage> newDamages = player.checkAttack(enemies, tileMap);
-        for (Damage dmg : newDamages) { 
+        for (Damage dmg : player.checkAttack(enemies, tileMap)) { 
             damages.add(dmg);
         }
         
@@ -204,7 +205,12 @@ public class LevelState extends GameState {
             Enemy e = enemies.get(i);
             e.update();
             //munchie take action according to player position
-            if(e instanceof Munchie) ((Munchie) e).chooseAction(player.getx(), player.gety());
+            if(e instanceof Munchie) {
+                ((Munchie) e).chooseAction(player.getx(), player.gety());
+                for (Damage dmg : ((Munchie)e).poisonHit(tileMap, player)) { 
+                    damages.add(dmg);
+                }
+            }
             if(e.isDead() || e.gety()>tileMap.height-14){
                 if(!e.isDead()) player.gainXp(e.getXp()/2);
                 enemies.remove(i);

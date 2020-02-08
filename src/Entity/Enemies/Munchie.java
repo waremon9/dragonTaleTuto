@@ -6,7 +6,9 @@
 package Entity.Enemies;
 
 import Entity.Animation;
+import Entity.Damage;
 import Entity.Enemy;
+import Entity.Player;
 import Entity.PoisonBall;
 import TileMap.TileMap;
 import java.awt.Graphics2D;
@@ -22,13 +24,13 @@ public class Munchie extends Enemy{
     
     private boolean idle;
     
-    //fireball
+    //poisonball
     private boolean firing;
-    private int fireCost;
-    private int fireBallDamage;
+    private int poisonBallDamage;
     private ArrayList<PoisonBall> poisonBalls;
+    private int poisonDelay;
     
-    //scratch attack
+    //munch attack
     private boolean munching;
     private int munchDamage;
     private int munchRange;
@@ -70,6 +72,7 @@ public class Munchie extends Enemy{
         this.xp = 35;
 
         poisonBalls = new ArrayList<PoisonBall>();
+        poisonBallDamage = 2;
         
         munchDamage = 3;
         munchRange = 20;
@@ -152,12 +155,25 @@ public class Munchie extends Enemy{
         //idle when too far, fire when good distance, flee when too close
         if(xPlayer>x) facingRight = false;
         else facingRight = true;
-        if(xPlayer>x+200 || xPlayer<x-200) setIdle();
+        if(xPlayer>x+170 || xPlayer<x-170) setIdle();
         else if(xPlayer > x+70 || xPlayer < x-70) setFiring();
         else{
             setJumping();
             facingRight = !facingRight;
         }
+    }
+    
+    public ArrayList<Damage> poisonHit(TileMap tm, Player player){
+        ArrayList<Damage> damages = new ArrayList<Damage>();
+        for (int j = 0; j < poisonBalls.size(); j++) {
+            if(poisonBalls.get(j).intersects(player)){
+                player.health-=poisonBallDamage;
+                damages.add(new Damage(tm, poisonBallDamage, player.getx(), player.gety()));
+                poisonBalls.get(j).setHit();
+                break;
+            }
+        }
+        return damages;
     }
     
     public void update(){
@@ -173,13 +189,6 @@ public class Munchie extends Enemy{
             if (elapsed>1000){
                 flinching = false;
             }
-        }
-        
-        //poison attack
-        if(firing && !falling){
-            PoisonBall pb = new PoisonBall(tileMap, !facingRight);
-            pb.setPosition(x, y);//poisonBall appear at the same position as the munchie
-            poisonBalls.add(pb);
         }
         
         //update poisonBall
@@ -203,6 +212,7 @@ public class Munchie extends Enemy{
                 currentAction = POISONBALL;
                 animation.setFrames(sprites.get(POISONBALL));
                 animation.setDelay(270);
+                poisonDelay = 150;
             }
         }else if(jumping){
             //falling animation is idle
@@ -218,6 +228,16 @@ public class Munchie extends Enemy{
                 animation.setDelay(200);
                 width = 30;
             }
+        }
+        
+        //poison attack
+        poisonDelay--;
+        if (poisonDelay<0) poisonDelay=0;
+        if(firing && !falling && poisonDelay == 0){
+            PoisonBall pb = new PoisonBall(tileMap, !facingRight);
+            pb.setPosition(x, y);//poisonBall appear at the same position as the munchie
+            poisonBalls.add(pb);
+            poisonDelay = 200;
         }
         
         animation.update();

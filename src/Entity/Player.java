@@ -22,7 +22,7 @@ public class Player extends MapObject{
     
     //player stuff
     private String pseudo;
-    private int health;
+    public int health;
     private int maxHealth;
     private int fire;
     private int maxFire;
