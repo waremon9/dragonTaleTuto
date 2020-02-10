@@ -93,7 +93,7 @@ public abstract class MapObject {
     }
     
     public Rectangle getRectangle(){
-        return new Rectangle((int)x-cwidth,(int)y-cheight, cwidth, cheight);
+        return new Rectangle((int)x-cwidth/2,(int)y-cheight/2, cwidth, cheight);
     }
     
     public void calculateCorners(double x, double y){
@@ -227,6 +227,13 @@ public abstract class MapObject {
             }else{//flip the image
                 g.drawImage(animation.getImage(), (int)(x+xmap-width/2+width), (int)(y+ymap-height/2),-width,height, null);
             }
+        }
+        drawHitBox(g);
+    }
+    
+    public void drawHitBox(Graphics2D g){
+        if(!notOnScreen()){
+            g.drawRect((int)(x-cwidth/2+xmap),(int)(y-cheight/2-ymap), cwidth, cheight);
         }
     }
     

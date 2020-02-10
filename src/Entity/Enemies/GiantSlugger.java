@@ -34,9 +34,9 @@ public class GiantSlugger extends Enemy{
         canBeBacking = false;
         
         width = 60;
-        height = 60;
-        cwidth = 35;
-        cheight = 27;
+        height = 55;
+        cwidth = 41;
+        cheight = 32;
         
         health = maxHealth = 50;
         damage = 4;

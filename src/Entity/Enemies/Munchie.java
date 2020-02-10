@@ -56,7 +56,7 @@ public class Munchie extends Enemy{
         
         width = 64;
         height = 64;
-        cwidth = 10;
+        cwidth = 20;
         cheight = 40;
         
         fallSpeed = 0.15;
@@ -153,14 +153,15 @@ public class Munchie extends Enemy{
     
     public void chooseAction(int xPlayer, int yPlayer){
         //idle when too far, fire when good distance, flee when too close
-        if(xPlayer>x) facingRight = false;
+        /*if(xPlayer>x) facingRight = false;
         else facingRight = true;
         if(xPlayer>x+170 || xPlayer<x-170) setIdle();
         else if(xPlayer > x+70 || xPlayer < x-70) setFiring();
         else{
             setJumping();
             facingRight = !facingRight;
-        }
+        }*/
+        setIdle();
     }
     
     public ArrayList<Damage> poisonHit(TileMap tm, Player player){
@@ -211,8 +212,8 @@ public class Munchie extends Enemy{
             if(currentAction != POISONBALL){
                 currentAction = POISONBALL;
                 animation.setFrames(sprites.get(POISONBALL));
-                animation.setDelay(270);
-                poisonDelay = 150;
+                animation.setDelay(180);
+                poisonDelay = 100;
             }
         }else if(jumping){
             //falling animation is idle
@@ -225,8 +226,7 @@ public class Munchie extends Enemy{
             if(currentAction != IDLE){
                 currentAction = IDLE;
                 animation.setFrames(sprites.get(IDLE));
-                animation.setDelay(200);
-                width = 30;
+                animation.setDelay(150);
             }
         }
         
@@ -237,7 +237,7 @@ public class Munchie extends Enemy{
             PoisonBall pb = new PoisonBall(tileMap, !facingRight);
             pb.setPosition(x, y);//poisonBall appear at the same position as the munchie
             poisonBalls.add(pb);
-            poisonDelay = 200;
+            poisonDelay = 135;
         }
         
         animation.update();
@@ -269,7 +269,6 @@ public class Munchie extends Enemy{
         }
         
         super.draw(g);
-        
     }
     
 }

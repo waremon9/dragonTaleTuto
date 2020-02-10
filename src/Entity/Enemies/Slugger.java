@@ -33,9 +33,9 @@ public class Slugger extends Enemy{
         canBeBacking = true;
         
         width = 30;
-        height = 30;
+        height = 37;
         cwidth = 25;
-        cheight = 25;
+        cheight = 18;
         
         health = maxHealth = 10;
         damage = 1;

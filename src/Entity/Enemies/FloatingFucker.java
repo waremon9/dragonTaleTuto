@@ -34,9 +34,9 @@ public class FloatingFucker extends Enemy{
         canBeBacking = false;
         
         width = 28;
-        height = 55;
+        height = 40;
         cwidth = 22;
-        cheight = 34;
+        cheight = 36;
         
         health = maxHealth = 10;
         damage = 2;
