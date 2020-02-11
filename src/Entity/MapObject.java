@@ -52,6 +52,7 @@ public abstract class MapObject {
     protected boolean topRight;//use the 4 corner to determine if item touch a block tile
     protected boolean bottomLeft;
     protected boolean bottomRight;
+    protected boolean backing;
     
     //animation
     protected Animation animation;
@@ -115,14 +116,16 @@ public abstract class MapObject {
     }
     
     public void isAboutToFall(){
-        if(left && !bottomLeft){
-            left = false;
-            right = facingRight = true;
-            dx = 0;
-        }else if(right && !bottomRight){
-            right = facingRight = false;
-            left = true;
-            dx = 0;
+        if(!backing && !falling) {
+            if(left && !bottomLeft){
+                left = false;
+                right = facingRight = true;
+                dx = 0;
+            }else if(right && !bottomRight){
+                right = facingRight = false;
+                left = true;
+                dx = 0;
+            }
         }
     }
     

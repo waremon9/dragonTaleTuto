@@ -23,7 +23,6 @@ public class Enemy extends MapObject{
     protected long flinchTimer;
     
     protected boolean canBeBacking;
-    protected boolean backing;
     protected boolean backingRight;
     protected boolean backingFirst;
     
@@ -117,15 +116,15 @@ public class Enemy extends MapObject{
     
     public void collisionLeftRight(){
         //if hits a wall, go other direction
-        if(right && dx == 0){//dx set to 0 when wallhit in MapObject
-            right = false;
-            left = true;
-            facingRight = false;
-        }else if(left && dx == 0){//dx set to 0 when wallhit in MapObject
-            left = false;
-            right = true;
-            facingRight = true;
-        }
+            if(right && dx == 0){//dx set to 0 when wallhit in MapObject
+                right = false;
+                left = true;
+                facingRight = false;
+            }else if(left && dx == 0){//dx set to 0 when wallhit in MapObject
+                left = false;
+                right = true;
+                facingRight = true;
+            }
     }
     
     public void collisionUpDown(int tropBasHaut){

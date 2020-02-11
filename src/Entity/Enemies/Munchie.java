@@ -55,9 +55,9 @@ public class Munchie extends Enemy{
         super(tm);
         
         width = 64;
-        height = 64;
-        cwidth = 20;
-        cheight = 40;
+        height = 75;
+        cwidth = 26;
+        cheight = 27;
         
         fallSpeed = 0.15;
         maxFallSpeed = 4.0;
@@ -75,7 +75,10 @@ public class Munchie extends Enemy{
         poisonBallDamage = 2;
         
         munchDamage = 3;
-        munchRange = 20;
+        munchRange = 40;
+        
+        //collision with player
+        damage = 3;
         
         //load sprites (all the sprites of the 4 differrent animation
         try{
@@ -87,7 +90,7 @@ public class Munchie extends Enemy{
             for(int i=0; i<4; i++){// 4 actions
                 BufferedImage[] bi = new BufferedImage[numFrames[i]];
                 for (int j=0; j<numFrames[i]; j++){
-                    bi[j] = spriteSheet.getSubimage(j*width, i*height, width, height);
+                    bi[j] = spriteSheet.getSubimage(j*width, i*64, width, height);
                 }
                 sprites.add(bi);
             }
@@ -153,15 +156,14 @@ public class Munchie extends Enemy{
     
     public void chooseAction(int xPlayer, int yPlayer){
         //idle when too far, fire when good distance, flee when too close
-        /*if(xPlayer>x) facingRight = false;
+        if(xPlayer>x) facingRight = false;
         else facingRight = true;
-        if(xPlayer>x+170 || xPlayer<x-170) setIdle();
+        if(xPlayer>x+190 || xPlayer<x-190) setIdle();
         else if(xPlayer > x+70 || xPlayer < x-70) setFiring();
         else{
             setJumping();
             facingRight = !facingRight;
-        }*/
-        setIdle();
+        }
     }
     
     public ArrayList<Damage> poisonHit(TileMap tm, Player player){
